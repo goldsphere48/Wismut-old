@@ -24,4 +24,14 @@ namespace Wi
 			m_Window->OnUpdate();
 		}
 	}
+
+	void Application::OnEvent(Event& event)
+	{
+		EventDispatcher dispatcher(event);
+	}
+
+	void Application::OnWindowClose(WindowCloseEvent& event)
+	{
+
+	}
 }
