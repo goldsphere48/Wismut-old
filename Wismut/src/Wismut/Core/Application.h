@@ -13,13 +13,15 @@ namespace Wi
 
 		void Run() const;
 		void OnEvent(Event& event);
+		static Application* GetInstance() { return s_Instance; }
 
 	private:
 		void OnWindowClose(WindowCloseEvent& event);
 
 	private:
-		static bool s_IsInitialized;
+		static Application* s_Instance;
 		std::unique_ptr<Window> m_Window;
+		bool m_Running;
 	};
 
 	Application* CreateApplication();

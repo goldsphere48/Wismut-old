@@ -20,6 +20,7 @@ namespace Wi
 		void SetVSync(bool value) override;
 		void* GetNativeWindow() const override { return m_Window; }
 		void OnUpdate() override;
+		void SetEventCallback(std::function<void(Event&)> callback) override;
 
 	private:
 		struct WindowData
@@ -28,6 +29,7 @@ namespace Wi
 			int Width;
 			int Height;
 			bool IsVSync;
+			std::function<void(Event&)> EventCallback;
 		};
 
 		WindowData m_Data;

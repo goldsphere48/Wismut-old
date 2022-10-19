@@ -2,6 +2,10 @@
 
 #include "wipch.h"
 
+#include <functional>
+
+#include "Wismut/Events/Event.h"
+
 namespace Wi
 {
 	struct WindowProps
@@ -26,6 +30,7 @@ namespace Wi
 		virtual bool IsVSync() const = 0;
 		virtual void SetVSync(bool value) = 0;
 		virtual void OnUpdate() = 0;
+		virtual void SetEventCallback(std::function<void(Event&)> callback) = 0;
 
 		virtual void* GetNativeWindow() const = 0;
 

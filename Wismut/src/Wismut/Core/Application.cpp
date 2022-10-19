@@ -6,20 +6,22 @@
 
 namespace Wi
 {
-	bool Application::s_IsInitialized;
+	Application* Application::s_Instance = nullptr;
 
 	Application::Application()
 	{
-		WI_CORE_ASSERT(!s_IsInitialized, "Application has already initialized");
+		WI_CORE_ASSERT(!s_Instance, "Application has already initialized");
 
 		m_Window = Window::Create();
+		m_Window->SetEventCallback(WI_BIND_EVENT_FN(Application::OnEvent));
 
-		s_IsInitialized = true;
+		s_Instance = this;
+		m_Running = true;
 	}
 
 	void Application::Run() const
 	{
-		while (true)
+		while (m_Running)
 		{
 			m_Window->OnUpdate();
 		}
@@ -28,10 +30,11 @@ namespace Wi
 	void Application::OnEvent(Event& event)
 	{
 		EventDispatcher dispatcher(event);
+		dispatcher.Dispatch<WindowCloseEvent>(WI_BIND_EVENT_FN(Application::OnWindowClose));
 	}
 
 	void Application::OnWindowClose(WindowCloseEvent& event)
 	{
-
+		m_Running = false;
 	}
 }

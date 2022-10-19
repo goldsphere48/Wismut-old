@@ -49,7 +49,7 @@ namespace Wi
 		{
 			if (m_Event.GetType() == T::GetStaticType())
 			{
-				handler(static_cast<T>(m_Event));
+				handler(static_cast<T&>(m_Event));
 			}
 		}
 

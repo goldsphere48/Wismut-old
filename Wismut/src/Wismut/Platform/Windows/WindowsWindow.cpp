@@ -4,6 +4,8 @@
 #include <Wismut/Core/Core.h>
 #include <Wismut/Core/Assert.h>
 
+#include "Wismut/Events/WindowEvents.h"
+
 namespace Wi
 {
 	WindowsWindow::WindowsWindow(const WindowProps& props)
@@ -33,6 +35,14 @@ namespace Wi
 		WI_CORE_ASSERT(m_Window, "Failed to create a window");
 
 		glfwMakeContextCurrent(m_Window);
+		glfwSetWindowUserPointer(m_Window, &m_Data);
+
+		glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window)
+		{
+			WindowData* data = static_cast<WindowData*>(glfwGetWindowUserPointer(window));
+			WindowCloseEvent e;
+			data->EventCallback(e);
+		});
 	}
 
 	void WindowsWindow::Shutdown() const
@@ -51,5 +61,10 @@ namespace Wi
 		glClear(GL_COLOR_BUFFER_BIT);
 		glfwSwapBuffers(m_Window);
 		glfwPollEvents();
+	}
+
+	void WindowsWindow::SetEventCallback(std::function<void(Event&)> callback)
+	{
+		m_Data.EventCallback = callback;
 	}
 }
