@@ -7,8 +7,10 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 IncludeDirs = {}
 IncludeDirs["GLFW"] = "vendor/glfw/include"
 IncludeDirs["glad"] = "vendor/glad/include"
+IncludeDirs["ImGui"] = "vendor/ImGui"
 
 include "Wismut/vendor/glfw"
 include "Wismut/vendor/glad"
+include "Wismut/vendor/ImGui"
 include "Wismut"
 include "Sandbox"

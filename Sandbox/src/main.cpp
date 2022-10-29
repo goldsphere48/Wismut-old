@@ -19,6 +19,7 @@ public:
 	MyApplication()
 	{
 		PushLayer(new MyLayer);
+		PushOverlay(new Wi::ImGuiLayer);
 	}
 };
 

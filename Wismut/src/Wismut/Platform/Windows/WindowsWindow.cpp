@@ -121,6 +121,11 @@ namespace Wi
 			MouseScrolledEvent e(xOffset, yOffset);
 			data->EventCallback(e);
 		});
+
+		glfwSetErrorCallback([](int x, const char* msg)
+		{
+			WI_CORE_ERROR(msg);
+		});
 	}
 
 	void WindowsWindow::Shutdown() const
@@ -136,7 +141,6 @@ namespace Wi
 
 	void WindowsWindow::OnUpdate()
 	{
-		glClear(GL_COLOR_BUFFER_BIT);
 		glfwSwapBuffers(m_Window);
 		glfwPollEvents();
 	}

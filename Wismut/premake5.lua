@@ -20,15 +20,22 @@ project "Wismut"
 		"src",
 		"vendor/spdlog/include",
 		"%{IncludeDirs.GLFW}",
-		"%{IncludeDirs.glad}"
+		"%{IncludeDirs.glad}",
+		"%{IncludeDirs.ImGui}"
 	}
 
 	links
 	{
 		"GLFW",
 		"glad",
+		"ImGui",
 		"opengl32.lib"
 	}
+
+	defines
+    {
+        "IMGUI_IMPL_OPENGL_LOADER_CUSTOM"
+    }
 
 	filter "system:windows"
 		staticruntime "on"
@@ -45,7 +52,11 @@ project "Wismut"
 
 	filter "configurations:Debug"
 		symbols "on"
-		defines { "WI_DEBUG" }
+		defines 
+		{ 
+			"WI_DEBUG",
+			"IMGUI_IMPL_OPENGL_DEBUG"
+		}
 		runtime "Debug"
 
 	filter "configurations:Release"

@@ -25,7 +25,7 @@ namespace Wi
 	{
 		while (m_Running)
 		{
-			glClearColor(0, 1, 0, 1);
+			glClearColor(32.f/255.f, 42.f/255.f, 6.f/255.f, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
 
 			for (Layer* layer : m_LayerStack)

@@ -16,7 +16,8 @@ namespace Wi
 		void OnEvent(Event& event);
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* layer);
-		static Application* GetInstance() { return s_Instance; }
+		static Application& Get() { return *s_Instance; }
+		Window& GetWindow() const { return *m_Window; }
 
 	private:
 		bool OnWindowClose(WindowCloseEvent& event);
