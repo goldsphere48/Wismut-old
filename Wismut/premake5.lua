@@ -19,19 +19,25 @@ project "Wismut"
 	{
 		"src",
 		"vendor/spdlog/include",
-		"%{IncludeDirs.GLFW}"
+		"%{IncludeDirs.GLFW}",
+		"%{IncludeDirs.glad}"
 	}
 
 	links
 	{
 		"GLFW",
+		"glad",
 		"opengl32.lib"
 	}
 
 	filter "system:windows"
 		staticruntime "on"
 		systemversion "latest"
-		defines { "WI_PLATFORM_WIN" }
+		defines 
+		{ 
+			"WI_PLATFORM_WIN",
+			"GLFW_INCLUDE_NONE" 
+		}
 		postbuildcommands
 		{
 			"{COPY} %{cfg.buildtarget.relpath} %{wks.location}/bin/" .. outputdir .. "/Sandbox/"

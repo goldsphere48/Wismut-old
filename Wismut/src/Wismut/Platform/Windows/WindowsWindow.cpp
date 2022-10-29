@@ -8,6 +8,8 @@
 #include "Wismut/Events/MouseEvent.h"
 #include "Wismut/Events/WindowEvents.h"
 
+#include <glad/glad.h>
+
 namespace Wi
 {
 	WindowsWindow::WindowsWindow(const WindowProps& props)
@@ -37,6 +39,10 @@ namespace Wi
 		WI_CORE_ASSERT(m_Window, "Failed to create a window");
 
 		glfwMakeContextCurrent(m_Window);
+
+		int status = gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress));
+		WI_CORE_ASSERT(status, "Failed to load glad");
+
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 
 		glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window)

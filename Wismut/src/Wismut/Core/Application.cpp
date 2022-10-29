@@ -4,6 +4,7 @@
 
 #include "Assert.h"
 #include "Core.h"
+#include <glad/glad.h>
 
 namespace Wi
 {
