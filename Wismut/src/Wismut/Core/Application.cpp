@@ -1,5 +1,6 @@
 #include "wipch.h"
 #include "Application.h"
+#include <GLFW/glfw3.h>
 
 #include "Assert.h"
 #include "Core.h"
@@ -19,10 +20,16 @@ namespace Wi
 		m_Running = true;
 	}
 
-	void Application::Run() const
+	void Application::Run()
 	{
 		while (m_Running)
 		{
+			glClearColor(0, 1, 0, 1);
+			glClear(GL_COLOR_BUFFER_BIT);
+
+			for (Layer* layer : m_LayerStack)
+				layer->OnUpdate();
+
 			m_Window->OnUpdate();
 		}
 	}
@@ -31,10 +38,31 @@ namespace Wi
 	{
 		EventDispatcher dispatcher(event);
 		dispatcher.Dispatch<WindowCloseEvent>(WI_BIND_EVENT_FN(Application::OnWindowClose));
+
+		WI_CORE_TRACE("{0}", event);
+
+		for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); ++it)
+		{
+			if (event.Handled)
+				break;
+
+			(*it)->OnEvent(event);
+		}
 	}
 
-	void Application::OnWindowClose(WindowCloseEvent& event)
+	void Application::PushLayer(Layer* layer)
+	{
+		m_LayerStack.PushLayer(layer);
+	}
+
+	void Application::PushOverlay(Layer* layer)
+	{
+		m_LayerStack.PushOverlay(layer);
+	}
+
+	bool Application::OnWindowClose(WindowCloseEvent& event)
 	{
 		m_Running = false;
+		return true;
 	}
 }

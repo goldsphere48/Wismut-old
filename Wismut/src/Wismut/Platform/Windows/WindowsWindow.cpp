@@ -4,6 +4,8 @@
 #include <Wismut/Core/Core.h>
 #include <Wismut/Core/Assert.h>
 
+#include "Wismut/Events/KeyEvent.h"
+#include "Wismut/Events/MouseEvent.h"
 #include "Wismut/Events/WindowEvents.h"
 
 namespace Wi
@@ -41,6 +43,76 @@ namespace Wi
 		{
 			WindowData* data = static_cast<WindowData*>(glfwGetWindowUserPointer(window));
 			WindowCloseEvent e;
+			data->EventCallback(e);
+		});
+
+		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
+		{
+			WindowData* data = static_cast<WindowData*>(glfwGetWindowUserPointer(window));
+			WindowResizeEvent e(width, height);
+			data->EventCallback(e);
+		});
+
+		glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
+		{
+			WindowData* data = static_cast<WindowData*>(glfwGetWindowUserPointer(window));
+
+			switch (action)
+			{
+				case GLFW_PRESS:
+				{
+					KeyPressedEvent e(key, false);
+					data->EventCallback(e);
+					break;
+				}
+				case GLFW_RELEASE:
+				{
+					KeyReleasedEvent e(key);
+					data->EventCallback(e);
+					break;
+				}
+				case GLFW_REPEAT:
+				{
+					KeyPressedEvent e(key, true);
+					data->EventCallback(e);
+					break;
+				}
+			}
+		});
+
+		glfwSetCursorPosCallback(m_Window, [](GLFWwindow* window, double x, double y)
+		{
+			WindowData* data = static_cast<WindowData*>(glfwGetWindowUserPointer(window));
+			MouseMovedEvent e(x, y);
+			data->EventCallback(e);
+		});
+
+		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int button, int action, int mods)
+		{
+			WindowData* data = static_cast<WindowData*>(glfwGetWindowUserPointer(window));
+
+			switch (action)
+			{
+				case GLFW_PRESS:
+				{
+					MouseButtonPressedEvent e(button);
+					data->EventCallback(e);
+					break;
+				}
+
+				case GLFW_RELEASE:
+				{
+					MouseButtonReleasedEvent e(button);
+					data->EventCallback(e);
+					break;
+				}
+			}
+		});
+
+		glfwSetScrollCallback(m_Window, [](GLFWwindow* window, double xOffset, double yOffset)
+		{
+			WindowData* data = static_cast<WindowData*>(glfwGetWindowUserPointer(window));
+			MouseScrolledEvent e(xOffset, yOffset);
 			data->EventCallback(e);
 		});
 	}

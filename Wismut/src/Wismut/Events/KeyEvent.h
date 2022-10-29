@@ -16,7 +16,7 @@ namespace Wi
 		int KeyCode;
 	};
 
-	class KeyPressedEvent : KeyEvent
+	class KeyPressedEvent : public KeyEvent
 	{
 	public:
 		KeyPressedEvent(int keyCode, bool repeated)
@@ -39,7 +39,7 @@ namespace Wi
 		bool m_IsRepeated;
 	};
 
-	class KeyReleasedEvent : KeyEvent
+	class KeyReleasedEvent : public KeyEvent
 	{
 	public:
 		KeyReleasedEvent(int keyCode)

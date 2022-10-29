@@ -2,6 +2,7 @@
 #include "Window.h"
 #include "Wismut/Events/Event.h"
 #include "Wismut/Events/WindowEvents.h"
+#include "LayerStack.h"
 
 namespace Wi
 {
@@ -11,14 +12,17 @@ namespace Wi
 		Application();
 		virtual ~Application() = default;
 
-		void Run() const;
+		void Run();
 		void OnEvent(Event& event);
+		void PushLayer(Layer* layer);
+		void PushOverlay(Layer* layer);
 		static Application* GetInstance() { return s_Instance; }
 
 	private:
-		void OnWindowClose(WindowCloseEvent& event);
+		bool OnWindowClose(WindowCloseEvent& event);
 
 	private:
+		LayerStack m_LayerStack;
 		static Application* s_Instance;
 		std::unique_ptr<Window> m_Window;
 		bool m_Running;

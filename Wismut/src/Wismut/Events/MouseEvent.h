@@ -19,10 +19,10 @@ namespace Wi
 		int MouseButton;
 	};
 
-	class MouseButtonPressed : public MouseButtonEvent
+	class MouseButtonPressedEvent : public MouseButtonEvent
 	{
 	public:
-		MouseButtonPressed(int mouseButton)
+		MouseButtonPressedEvent(int mouseButton)
 			: MouseButtonEvent(mouseButton)
 		{
 			
@@ -38,10 +38,10 @@ namespace Wi
 		}
 	};
 
-	class MouseButtonReleased : public MouseButtonEvent
+	class MouseButtonReleasedEvent : public MouseButtonEvent
 	{
 	public:
-		MouseButtonReleased(int mouseButton)
+		MouseButtonReleasedEvent(int mouseButton)
 			: MouseButtonEvent(mouseButton)
 		{
 
@@ -57,10 +57,10 @@ namespace Wi
 		}
 	};
 
-	class MouseMoved : public Event
+	class MouseMovedEvent : public Event
 	{
 	public:
-		MouseMoved(int mouseX, int mouseY)
+		MouseMovedEvent(int mouseX, int mouseY)
 			: m_MouseX(mouseX), m_MouseY(mouseY)
 		{
 			
@@ -76,10 +76,10 @@ namespace Wi
 		int m_MouseY;
 	};
 
-	class MouseScrolled : public Event
+	class MouseScrolledEvent : public Event
 	{
 	public:
-		MouseScrolled(int xOffset, int yOffset)
+		MouseScrolledEvent(int xOffset, int yOffset)
 			: m_xOffset(xOffset), m_yOffset(yOffset)
 		{
 			
