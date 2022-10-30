@@ -12,7 +12,9 @@ project "Wismut"
 	files
 	{
 		"src/**.cpp",
-		"src/**.h"
+		"src/**.h",
+		"vendor/glm/glm/**.hpp",
+		"vendor/glm/glm/**.inl"
 	}
 
 	includedirs
@@ -21,7 +23,8 @@ project "Wismut"
 		"vendor/spdlog/include",
 		"%{IncludeDirs.GLFW}",
 		"%{IncludeDirs.glad}",
-		"%{IncludeDirs.ImGui}"
+		"%{IncludeDirs.ImGui}",
+		"%{IncludeDirs.glm}",
 	}
 
 	links

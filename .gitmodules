@@ -7,3 +7,6 @@
 [submodule "Wismut/vendor/GLFW"]
 	path = Wismut/vendor/GLFW
 	url = https://github.com/goldsphere48/glfw
+[submodule "Wismut/vendor/glm"]
+	path = Wismut/vendor/glm
+	url = https://github.com/g-truc/glm

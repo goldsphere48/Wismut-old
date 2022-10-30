@@ -21,7 +21,8 @@ project "Sandbox"
 	{
 		"%{wks.location}/Wismut/src",
 		"%{wks.location}/Wismut/vendor/spdlog/include",
-		"%{wks.location}/Wismut/vendor"
+		"%{wks.location}/Wismut/vendor",
+		"%{IncludeDirs.glm}"
 	}
 
 	filter "system:windows"

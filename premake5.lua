@@ -8,6 +8,7 @@ IncludeDirs = {}
 IncludeDirs["GLFW"] = "vendor/GLFW/include"
 IncludeDirs["glad"] = "vendor/glad/include"
 IncludeDirs["ImGui"] = "vendor/ImGui"
+IncludeDirs["glm"] = "vendor/glm"
 
 include "Wismut/vendor/glfw"
 include "Wismut/vendor/glad"
