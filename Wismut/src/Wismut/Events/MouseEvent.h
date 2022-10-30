@@ -1,5 +1,6 @@
 #pragma once
 #include "Event.h"
+#include "Wismut/Core/MouseCodes.h"
 
 namespace Wi
 {
@@ -9,20 +10,20 @@ namespace Wi
 		int GetMouseButton() const { return MouseButton; }
 
 	protected:
-		MouseButtonEvent(int mouseButton)
+		MouseButtonEvent(MouseCode mouseButton)
 			: MouseButton(mouseButton)
 		{
 
 		}
 
 	protected:
-		int MouseButton;
+		MouseCode MouseButton;
 	};
 
 	class MouseButtonPressedEvent : public MouseButtonEvent
 	{
 	public:
-		MouseButtonPressedEvent(int mouseButton)
+		MouseButtonPressedEvent(MouseCode mouseButton)
 			: MouseButtonEvent(mouseButton)
 		{
 			
@@ -41,7 +42,7 @@ namespace Wi
 	class MouseButtonReleasedEvent : public MouseButtonEvent
 	{
 	public:
-		MouseButtonReleasedEvent(int mouseButton)
+		MouseButtonReleasedEvent(MouseCode mouseButton)
 			: MouseButtonEvent(mouseButton)
 		{
 

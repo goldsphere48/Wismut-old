@@ -6,3 +6,4 @@
 #include <sstream>
 #include <vector>
 #include <functional>
+#include <cstdint>

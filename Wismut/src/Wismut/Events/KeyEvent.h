@@ -1,25 +1,26 @@
 #pragma once
 #include "Event.h"
+#include "Wismut/Core/KeyCodes.h"
 
 namespace Wi
 {
 	class KeyEvent : public Event
 	{
 	public:
-		KeyEvent(int keyCode)
-			: KeyCode(keyCode)
+		KeyEvent(KeyCode keyCode)
+			: Key(keyCode)
 		{
 			
 		}
 
 	protected:
-		int KeyCode;
+		KeyCode Key;
 	};
 
 	class KeyPressedEvent : public KeyEvent
 	{
 	public:
-		KeyPressedEvent(int keyCode, bool repeated)
+		KeyPressedEvent(KeyCode keyCode, bool repeated)
 			: KeyEvent(keyCode), m_IsRepeated(repeated)
 		{
 		}
@@ -29,7 +30,7 @@ namespace Wi
 		std::string ToString() const override
 		{
 			std::stringstream ss;
-			ss << "KeyPressed: " << KeyCode << " " << m_IsRepeated;
+			ss << "KeyPressed: " << Key << " " << m_IsRepeated;
 			return ss.str();
 		}
 
@@ -42,7 +43,7 @@ namespace Wi
 	class KeyReleasedEvent : public KeyEvent
 	{
 	public:
-		KeyReleasedEvent(int keyCode)
+		KeyReleasedEvent(KeyCode keyCode)
 			: KeyEvent(keyCode)
 		{
 		}
@@ -52,7 +53,7 @@ namespace Wi
 		std::string ToString() const override
 		{
 			std::stringstream ss;
-			ss << "KeyReleased: " << KeyCode;
+			ss << "KeyReleased: " << Key;
 			return ss.str();
 		}
 	};

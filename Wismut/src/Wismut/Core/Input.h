@@ -1,15 +1,17 @@
 #pragma once
+#include "KeyCodes.h"
+#include "MouseCodes.h"
 
 namespace Wi
 {
 	class Input
 	{
 	public:
-		static bool IsKeyPressed(int key) { return s_Instance->IsKeyPressedImpl(key); }
-		static bool IsKeyReleased(int key) { return s_Instance->IsKeyReleasedImpl(key); }
+		static bool IsKeyPressed(KeyCode key) { return s_Instance->IsKeyPressedImpl(key); }
+		static bool IsKeyReleased(KeyCode key) { return s_Instance->IsKeyReleasedImpl(key); }
 
-		static bool IsMouseButtonPressed(int button) { return s_Instance->IsMouseButtonPressedImpl(button); }
-		static bool IsMouseButtonReleased(int button) { return s_Instance->IsMouseButtonReleasedImpl(button); }
+		static bool IsMouseButtonPressed(MouseCode button) { return s_Instance->IsMouseButtonPressedImpl(button); }
+		static bool IsMouseButtonReleased(MouseCode button) { return s_Instance->IsMouseButtonReleasedImpl(button); }
 
 		static float GetMouseX() { return s_Instance->GetMouseXImpl(); }
 		static float GetMouseY() { return s_Instance->GetMouseYImpl(); }
