@@ -22,6 +22,6 @@ namespace Wi
 
 	private:
 		std::vector<Layer*> m_LayerStack;
-		std::vector<Layer*>::iterator m_LayerInsert;
+		int m_LayerInsertIndex;
 	};
 }

@@ -6,7 +6,7 @@ namespace Wi
 {
 	LayerStack::LayerStack()
 	{
-		m_LayerInsert = m_LayerStack.begin();
+		m_LayerInsertIndex = 0;
 	}
 
 	LayerStack::~LayerStack()
@@ -17,7 +17,8 @@ namespace Wi
 
 	void LayerStack::PushLayer(Layer* layer)
 	{
-		m_LayerInsert = m_LayerStack.emplace(m_LayerInsert, layer);
+		m_LayerStack.emplace(m_LayerStack.begin() + m_LayerInsertIndex, layer);
+		m_LayerInsertIndex++;
 		layer->OnAttach();
 	}
 
@@ -33,7 +34,7 @@ namespace Wi
 		if (it != m_LayerStack.end())
 		{
 			m_LayerStack.erase(it);
-			--m_LayerInsert;
+			m_LayerInsertIndex--;
 			layer->OnDetach();
 		}
 	}

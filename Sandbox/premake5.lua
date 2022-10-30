@@ -20,7 +20,8 @@ project "Sandbox"
 	includedirs
 	{
 		"%{wks.location}/Wismut/src",
-		"%{wks.location}/Wismut/vendor/spdlog/include"
+		"%{wks.location}/Wismut/vendor/spdlog/include",
+		"%{wks.location}/Wismut/vendor"
 	}
 
 	filter "system:windows"

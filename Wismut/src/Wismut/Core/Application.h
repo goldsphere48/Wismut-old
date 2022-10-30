@@ -3,6 +3,7 @@
 #include "Wismut/Events/Event.h"
 #include "Wismut/Events/WindowEvents.h"
 #include "LayerStack.h"
+#include "Wismut/ImGui/ImGuiLayer.h"
 
 namespace Wi
 {
@@ -26,6 +27,7 @@ namespace Wi
 		LayerStack m_LayerStack;
 		static Application* s_Instance;
 		std::unique_ptr<Window> m_Window;
+		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running;
 	};
 

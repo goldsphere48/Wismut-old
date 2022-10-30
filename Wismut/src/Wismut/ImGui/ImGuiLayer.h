@@ -8,10 +8,14 @@ namespace Wi
 	public:
 		ImGuiLayer();
 		~ImGuiLayer() override;
-		void OnAttach() override;
-		void OnDetach() override;
-		void OnUpdate() override;
-		void OnEvent(const Event& event) override;
+
+		virtual void OnAttach() override;
+		virtual void OnDetach() override;
+		virtual void OnUpdate() override;
+		virtual void OnImGuiRender() override;
+
+		void Begin();
+		void End();
 
 	private:
 		float m_Time;

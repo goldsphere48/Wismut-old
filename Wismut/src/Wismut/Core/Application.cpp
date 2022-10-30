@@ -14,10 +14,14 @@ namespace Wi
 	{
 		WI_CORE_ASSERT(!s_Instance, "Application has already initialized");
 
+		s_Instance = this;
+
 		m_Window = Window::Create();
 		m_Window->SetEventCallback(WI_BIND_EVENT_FN(Application::OnEvent));
 
-		s_Instance = this;
+		m_ImGuiLayer = new ImGuiLayer();
+		PushOverlay(m_ImGuiLayer);
+
 		m_Running = true;
 	}
 
@@ -31,6 +35,10 @@ namespace Wi
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
 
+			m_ImGuiLayer->Begin();
+			for (Layer* layer : m_LayerStack)
+				layer->OnImGuiRender();
+			m_ImGuiLayer->End();
 			m_Window->OnUpdate();
 		}
 	}
