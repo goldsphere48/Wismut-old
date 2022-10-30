@@ -1,3 +1,6 @@
 [submodule "Wismut/vendor/spdlog"]
 	path = Wismut/vendor/spdlog
 	url = https://github.com/gabime/spdlog
+[submodule "Wismut/vendor/ImGui"]
+	path = Wismut/vendor/ImGui
+	url = https://github.com/goldsphere48/ImGui
