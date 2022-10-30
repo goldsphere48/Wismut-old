@@ -4,3 +4,6 @@
 [submodule "Wismut/vendor/ImGui"]
 	path = Wismut/vendor/ImGui
 	url = https://github.com/goldsphere48/ImGui
+[submodule "Wismut/vendor/GLFW"]
+	path = Wismut/vendor/GLFW
+	url = https://github.com/goldsphere48/glfw

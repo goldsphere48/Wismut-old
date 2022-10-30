@@ -5,7 +5,7 @@ workspace "Wismut"
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDirs = {}
-IncludeDirs["GLFW"] = "vendor/glfw/include"
+IncludeDirs["GLFW"] = "vendor/GLFW/include"
 IncludeDirs["glad"] = "vendor/glad/include"
 IncludeDirs["ImGui"] = "vendor/ImGui"
 
