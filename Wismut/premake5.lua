@@ -2,6 +2,7 @@ project "Wismut"
 	language "C++"
 	cppdialect "C++17"
 	kind "StaticLib"
+	staticruntime "on"
 
 	targetdir("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
 	objdir("%{wks.location}/obj/" .. outputdir .. "/%{prj.name}")
@@ -37,20 +38,16 @@ project "Wismut"
 
 	defines
     {
-        "IMGUI_IMPL_OPENGL_LOADER_CUSTOM"
+        "IMGUI_IMPL_OPENGL_LOADER_CUSTOM",
+		"_CRT_SECURE_NO_WARNINGS"
     }
 
 	filter "system:windows"
-		staticruntime "on"
 		systemversion "latest"
 		defines 
 		{ 
 			"WI_PLATFORM_WIN",
 			"GLFW_INCLUDE_NONE" 
-		}
-		postbuildcommands
-		{
-			"{COPY} %{cfg.buildtarget.relpath} %{wks.location}/bin/" .. outputdir .. "/Sandbox/"
 		}
 
 	filter "configurations:Debug"

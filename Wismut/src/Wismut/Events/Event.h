@@ -33,7 +33,7 @@ namespace Wi
 		virtual const char* GetName() const = 0;
 		virtual EventType GetType() const = 0;
 		virtual std::string ToString() const { return GetName(); }
-		bool Handled;
+		bool Handled = false;
 	};
 
 	inline std::ostream& operator << (std::ostream& stream, const Event& event)

@@ -2,6 +2,7 @@ project "Sandbox"
 	language "C++"
 	cppdialect "C++17"
 	kind "ConsoleApp"
+	staticruntime "on"
 
 	targetdir("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
 	objdir("%{wks.location}/obj/" .. outputdir .. "/%{prj.name}")
@@ -26,7 +27,6 @@ project "Sandbox"
 	}
 
 	filter "system:windows"
-		staticruntime "on"
 		systemversion "latest"
 		defines { "WI_PLATFORM_WIN" }
 

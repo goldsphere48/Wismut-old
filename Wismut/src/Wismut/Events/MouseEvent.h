@@ -61,7 +61,7 @@ namespace Wi
 	class MouseMovedEvent : public Event
 	{
 	public:
-		MouseMovedEvent(int mouseX, int mouseY)
+		MouseMovedEvent(float mouseX, float mouseY)
 			: m_MouseX(mouseX), m_MouseY(mouseY)
 		{
 			
@@ -69,18 +69,18 @@ namespace Wi
 
 		EVENT_TYPE(MouseMoved)
 
-		int GetMouseX() const { return m_MouseX; }
-		int GetMouseY() const { return m_MouseY; }
+		float GetMouseX() const { return m_MouseX; }
+		float GetMouseY() const { return m_MouseY; }
 
 	private:
-		int m_MouseX;
-		int m_MouseY;
+		float m_MouseX;
+		float m_MouseY;
 	};
 
 	class MouseScrolledEvent : public Event
 	{
 	public:
-		MouseScrolledEvent(int xOffset, int yOffset)
+		MouseScrolledEvent(float xOffset, float yOffset)
 			: m_xOffset(xOffset), m_yOffset(yOffset)
 		{
 			
@@ -88,11 +88,11 @@ namespace Wi
 
 		EVENT_TYPE(MouseScrolled)
 
-		int GetOffsetX() const { return m_xOffset; }
-		int GetOffsetY() const { return m_yOffset; }
+		float GetOffsetX() const { return m_xOffset; }
+		float GetOffsetY() const { return m_yOffset; }
 
 	private:
-		int m_xOffset;
-		int m_yOffset;
+		float m_xOffset;
+		float m_yOffset;
 	};
 }

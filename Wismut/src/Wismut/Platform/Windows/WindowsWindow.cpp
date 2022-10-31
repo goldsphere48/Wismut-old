@@ -89,7 +89,7 @@ namespace Wi
 		glfwSetCursorPosCallback(m_Window, [](GLFWwindow* window, double x, double y)
 		{
 			WindowData* data = static_cast<WindowData*>(glfwGetWindowUserPointer(window));
-			MouseMovedEvent e(x, y);
+			MouseMovedEvent e(static_cast<float>(x), static_cast<float>(y));
 			data->EventCallback(e);
 		});
 
@@ -101,14 +101,14 @@ namespace Wi
 			{
 				case GLFW_PRESS:
 				{
-					MouseButtonPressedEvent e(button);
+					MouseButtonPressedEvent e(static_cast<uint16_t>(button));
 					data->EventCallback(e);
 					break;
 				}
 
 				case GLFW_RELEASE:
 				{
-					MouseButtonReleasedEvent e(button);
+					MouseButtonReleasedEvent e(static_cast<uint16_t>(button));
 					data->EventCallback(e);
 					break;
 				}
@@ -118,7 +118,7 @@ namespace Wi
 		glfwSetScrollCallback(m_Window, [](GLFWwindow* window, double xOffset, double yOffset)
 		{
 			WindowData* data = static_cast<WindowData*>(glfwGetWindowUserPointer(window));
-			MouseScrolledEvent e(xOffset, yOffset);
+			MouseScrolledEvent e((float)xOffset, (float)yOffset);
 			data->EventCallback(e);
 		});
 
