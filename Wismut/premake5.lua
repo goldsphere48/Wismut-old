@@ -52,11 +52,7 @@ project "Wismut"
 
 	filter "configurations:Debug"
 		symbols "on"
-		defines 
-		{ 
-			"WI_DEBUG",
-			"IMGUI_IMPL_OPENGL_DEBUG"
-		}
+		defines { "WI_DEBUG" }
 		runtime "Debug"
 
 	filter "configurations:Release"

@@ -10,6 +10,8 @@
 
 #include <glad/glad.h>
 
+#include "Wismut/Platform/OpenGL/OpenGLContext.h"
+
 namespace Wi
 {
 	WindowsWindow::WindowsWindow(const WindowProps& props)
@@ -35,13 +37,10 @@ namespace Wi
 		WI_CORE_ASSERT(glfwInit(), "Failed to init glfw");
 
 		m_Window = glfwCreateWindow(m_Data.Width, m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
-
 		WI_CORE_ASSERT(m_Window, "Failed to create a window");
 
-		glfwMakeContextCurrent(m_Window);
-
-		int status = gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress));
-		WI_CORE_ASSERT(status, "Failed to load glad");
+		m_Context = std::make_unique<Render::OpenGL::Context>(m_Window);
+		m_Context->Init();
 
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 
@@ -141,7 +140,7 @@ namespace Wi
 
 	void WindowsWindow::OnUpdate()
 	{
-		glfwSwapBuffers(m_Window);
+		m_Context->SwapBuffers();
 		glfwPollEvents();
 	}
 
