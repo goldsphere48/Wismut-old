@@ -6,6 +6,10 @@
 #include "Core.h"
 #include <glad/glad.h>
 
+#include "Wismut/Renderer/IndexBuffer.h"
+#include "Wismut/Renderer/Shader.h"
+#include "Wismut/Renderer/VertexBuffer.h"
+
 namespace Wi
 {
 	Application* Application::s_Instance = nullptr;
@@ -27,10 +31,41 @@ namespace Wi
 
 	void Application::Run()
 	{
+		unsigned int vertexArray;
+
+		glGenVertexArrays(1, &vertexArray);
+		glBindVertexArray(vertexArray);
+
+		float vertices[] = {
+			-0.5f, -0.5f, 0.0f,   1.0f, 0.0f, 0.0f,
+			 0.0f,  0.5f, 0.0f,   0.0f, 1.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f
+		};
+
+		uint32_t indices[] = {
+			0, 1, 2,
+		};
+
+		std::shared_ptr<Render::VertexBuffer> vertexBuffer = Render::VertexBuffer::Create(vertices, sizeof(vertices));
+		vertexBuffer->Bind();
+
+		std::shared_ptr<Render::IndexBuffer> indexBuffer = Render::IndexBuffer::Create(indices, 3);
+		indexBuffer->Bind();
+
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), 0);
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), reinterpret_cast<void*>(sizeof(float) * 3));
+
+		std::shared_ptr<Render::Shader> shader = Render::Shader::Create("assets/test.glsl");
+		shader->Bind();
+
 		while (m_Running)
 		{
-			glClearColor(32.f/255.f, 42.f/255.f, 6.f/255.f, 1);
+			glClearColor(0.1f, 0.1f, 0.1f, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
+
+			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
