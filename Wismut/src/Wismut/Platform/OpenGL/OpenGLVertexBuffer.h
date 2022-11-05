@@ -18,9 +18,12 @@ namespace Wi
 				void Bind() const override;
 				void Unbind() const override;
 				void SetData(const void* data, uint32_t size) override;
+				void SetLayout(const BufferLayout& layout) override;
+				const BufferLayout& GetLayout() const override;
 
 			private:
-				unsigned int m_RenderID;
+				uint32_t m_RenderID;
+				BufferLayout m_Layout;
 			};
 		}
 	}

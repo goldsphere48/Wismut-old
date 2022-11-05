@@ -1,6 +1,8 @@
 #include "wipch.h"
 #include "Shader.h"
 
+#include "Renderer.h"
+#include "Wismut/Core/Assert.h"
 #include "Wismut/Core/Log.h"
 #include "Wismut/Platform/OpenGL/OpenGLShader.h"
 
@@ -10,12 +12,32 @@ namespace Wi
 	{
 		std::shared_ptr<Shader> Shader::Create(const std::string& filepath)
 		{
-			return std::make_shared<OpenGL::Shader>(filepath);
+			switch (Renderer::GetAPI())
+			{
+				case RenderAPI::None:
+					WI_CORE_ASSERT(false, "Unspecified render API");
+					return nullptr;
+				case RenderAPI::OpenGL:
+					return std::make_shared<OpenGL::Shader>(filepath);
+			}
+
+			WI_CORE_ASSERT(false, "Unknown render API");
+			return nullptr;
 		}
 
 		std::shared_ptr<Shader> Shader::Create(const std::string& vertexSrc, const std::string& fragmentSource)
 		{
-			return std::make_shared<OpenGL::Shader>(vertexSrc, fragmentSource);
+			switch (Renderer::GetAPI())
+			{
+			case RenderAPI::None:
+				WI_CORE_ASSERT(false, "Unspecified render API");
+				return nullptr;
+			case RenderAPI::OpenGL:
+				return std::make_shared<OpenGL::Shader>(vertexSrc, fragmentSource);
+			}
+
+			WI_CORE_ASSERT(false, "Unknown render API");
+			return nullptr;
 		}
 
 		std::string Shader::ReadFile(const std::string& filepath)

@@ -42,6 +42,16 @@ namespace Wi
 				glBindBuffer(GL_ARRAY_BUFFER, m_RenderID);
 				glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
 			}
+
+			void VertexBuffer::SetLayout(const BufferLayout& layout)
+			{
+				m_Layout = layout;
+			}
+
+			const BufferLayout& VertexBuffer::GetLayout() const
+			{
+				return m_Layout;
+			}
 		}
 	}
 }

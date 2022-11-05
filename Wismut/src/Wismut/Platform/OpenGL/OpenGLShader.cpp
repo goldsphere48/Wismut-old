@@ -84,12 +84,12 @@ namespace Wi
 
 			void Shader::CreateProgram(std::unordered_map<GLenum, std::string>&& sources)
 			{
-				const unsigned int program = glCreateProgram();
-				std::vector<unsigned int> shaderIDs;
+				const uint32_t program = glCreateProgram();
+				std::vector<uint32_t> shaderIDs;
 
 				for (auto[type, source] : sources)
 				{
-					unsigned int id = glCreateShader(type);
+					uint32_t id = glCreateShader(type);
 					const char* src = source.c_str();
 					glShaderSource(id, 1, &src, nullptr);
 					glCompileShader(id);

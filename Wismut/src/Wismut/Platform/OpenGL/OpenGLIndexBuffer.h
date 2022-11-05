@@ -19,7 +19,7 @@ namespace Wi
 				uint32_t GetCount() const override { return m_Count; }
 
 			private:
-				unsigned int m_RenderID;
+				uint32_t m_RenderID;
 				uint32_t m_Count;
 			};
 		}

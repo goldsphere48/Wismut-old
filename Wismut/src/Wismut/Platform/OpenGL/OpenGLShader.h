@@ -24,7 +24,7 @@ namespace Wi
 				void CreateProgram(std::unordered_map<GLenum, std::string>&& sources);
 
 			private:
-				unsigned int m_RenderID;
+				uint32_t m_RenderID;
 			};
 		}
 	}
