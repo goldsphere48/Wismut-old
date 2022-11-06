@@ -4,28 +4,22 @@
 
 namespace Wi
 {
-	namespace Render
+	class OpenGLShader : public Shader
 	{
-		namespace OpenGL
-		{
-			class Shader : public Render::Shader
-			{
-			public:
-				Shader(const std::string& vertexSource, const std::string& fragmentSource);
-				Shader(const std::string& filepath);
+	public:
+		OpenGLShader(const std::string& vertexSource, const std::string& fragmentSource);
+		OpenGLShader(const std::string& filepath);
 
-				~Shader() override;
+		~OpenGLShader() override;
 
-				void Bind() override;
-				void Unbind() override;
+		void Bind() override;
+		void Unbind() override;
 
-			private:
-				std::unordered_map<GLenum, std::string> SplitShader(const std::string& source);
-				void CreateProgram(std::unordered_map<GLenum, std::string>&& sources);
+	private:
+		std::unordered_map<GLenum, std::string> SplitShader(const std::string& source);
+		void CreateProgram(std::unordered_map<GLenum, std::string>&& sources);
 
-			private:
-				uint32_t m_RenderID;
-			};
-		}
-	}
+	private:
+		uint32_t m_RenderID;
+	};
 }

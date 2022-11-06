@@ -7,30 +7,24 @@
 
 namespace Wi
 {
-	namespace Render
+	OpenGLContext::OpenGLContext(GLFWwindow* window)
+		: m_Window(window)
 	{
-		namespace OpenGL
-		{
-			Context::Context(GLFWwindow* window)
-				: m_Window(window)
-			{
-			}
+	}
 
-			void Context::Init()
-			{
-				glfwMakeContextCurrent(m_Window);
-				int status = gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress));
-				WI_CORE_ASSERT(status, "Failed to load glad");
+	void OpenGLContext::Init()
+	{
+		glfwMakeContextCurrent(m_Window);
+		int status = gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress));
+		WI_CORE_ASSERT(status, "Failed to load glad");
 
-				WI_CORE_INFO("Vendor: {0}", glGetString(GL_VENDOR));
-				WI_CORE_INFO("Renderer: {0}", glGetString(GL_RENDERER));
-				WI_CORE_INFO("Version: {0}", glGetString(GL_VERSION));
-			}
+		WI_CORE_INFO("Vendor: {0}", glGetString(GL_VENDOR));
+		WI_CORE_INFO("Renderer: {0}", glGetString(GL_RENDERER));
+		WI_CORE_INFO("Version: {0}", glGetString(GL_VERSION));
+	}
 
-			void Context::SwapBuffers()
-			{
-				glfwSwapBuffers(m_Window);
-			}
-		}
+	void OpenGLContext::SwapBuffers()
+	{
+		glfwSwapBuffers(m_Window);
 	}
 }

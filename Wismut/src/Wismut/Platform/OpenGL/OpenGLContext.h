@@ -6,21 +6,15 @@ struct GLFWwindow;
 
 namespace Wi
 {
-	namespace Render
+	class OpenGLContext : public RenderContext
 	{
-		namespace OpenGL
-		{
-			class Context : public Render::Context
-			{
-			public:
-				Context(GLFWwindow* window);
+	public:
+		OpenGLContext(GLFWwindow* window);
 
-				void Init() override;
-				void SwapBuffers() override;
+		void Init() override;
+		void SwapBuffers() override;
 
-			private:
-				GLFWwindow* m_Window;
-			};
-		}
-	}
+	private:
+		GLFWwindow* m_Window;
+	};
 }

@@ -39,7 +39,7 @@ namespace Wi
 		m_Window = glfwCreateWindow(m_Data.Width, m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
 		WI_CORE_ASSERT(m_Window, "Failed to create a window");
 
-		m_Context = std::make_unique<Render::OpenGL::Context>(m_Window);
+		m_Context = std::make_unique<OpenGLContext>(m_Window);
 		m_Context->Init();
 
 		glfwSetWindowUserPointer(m_Window, &m_Data);

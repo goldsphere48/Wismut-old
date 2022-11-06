@@ -3,25 +3,19 @@
 
 namespace Wi
 {
-	namespace Render
+	class OpenGLIndexBuffer : public IndexBuffer
 	{
-		namespace OpenGL
-		{
-			class IndexBuffer : public Render::IndexBuffer
-			{
-			public:
-				IndexBuffer(uint32_t* indices, uint32_t count);
-				~IndexBuffer() override;
+	public:
+		OpenGLIndexBuffer(uint32_t* indices, uint32_t count);
+		~OpenGLIndexBuffer() override;
 
-				void Bind() const override;
-				void Unbind() const override;
+		void Bind() const override;
+		void Unbind() const override;
 
-				uint32_t GetCount() const override { return m_Count; }
+		uint32_t GetCount() const override { return m_Count; }
 
-			private:
-				uint32_t m_RenderID;
-				uint32_t m_Count;
-			};
-		}
-	}
+	private:
+		uint32_t m_RenderID;
+		uint32_t m_Count;
+	};
 }

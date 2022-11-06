@@ -3,8 +3,5 @@
 
 namespace Wi
 {
-	namespace Render
-	{
-		RenderAPI Renderer::s_RenderAPI = RenderAPI::OpenGL;
-	}
+	RenderAPI Renderer::s_RenderAPI = RenderAPI::OpenGL;
 }

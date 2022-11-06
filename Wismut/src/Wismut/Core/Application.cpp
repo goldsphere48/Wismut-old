@@ -33,7 +33,7 @@ namespace Wi
 
 	void Application::Run()
 	{
-		std::shared_ptr<Render::VertexArray> vertexArray = Render::VertexArray::Create();
+		std::shared_ptr<VertexArray> vertexArray = VertexArray::Create();
 
 		float vertices[] = {
 			-0.5f, -0.5f, 0.0f,   1.0f, 0.0f, 0.0f,
@@ -45,20 +45,20 @@ namespace Wi
 			0, 1, 2,
 		};
 
-		std::shared_ptr<Render::VertexBuffer> vertexBuffer = Render::VertexBuffer::Create(vertices, sizeof(vertices));
+		std::shared_ptr<VertexBuffer> vertexBuffer = VertexBuffer::Create(vertices, sizeof(vertices));
 
-		Render::BufferLayout layout {
-			{ Render::ShaderDataType::Float3, "u_Position" },
-			{ Render::ShaderDataType::Float3, "u_Color" },
+		BufferLayout layout {
+			{ ShaderDataType::Float3, "u_Position" },
+			{ ShaderDataType::Float3, "u_Color" },
 		};
 
 		vertexBuffer->SetLayout(layout);
 		vertexArray->AddVertexBuffer(vertexBuffer);
 
-		std::shared_ptr<Render::IndexBuffer> indexBuffer = Render::IndexBuffer::Create(indices, 3);
+		std::shared_ptr<IndexBuffer> indexBuffer = IndexBuffer::Create(indices, 3);
 		vertexArray->SetIndexBuffer(indexBuffer);
 
-		std::shared_ptr<Render::Shader> shader = Render::Shader::Create("assets/test.glsl");
+		std::shared_ptr<Shader> shader = Shader::Create("assets/test.glsl");
 
 		while (m_Running)
 		{

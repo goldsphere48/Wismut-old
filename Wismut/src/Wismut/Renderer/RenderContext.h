@@ -2,14 +2,11 @@
 
 namespace Wi
 {
-	namespace Render
+	class RenderContext
 	{
-		class Context
-		{
-		public:
-			virtual ~Context() = default;
-			virtual void Init() = 0;
-			virtual void SwapBuffers() = 0;
-		};
-	}
+	public:
+		virtual ~RenderContext() = default;
+		virtual void Init() = 0;
+		virtual void SwapBuffers() = 0;
+	};
 }
