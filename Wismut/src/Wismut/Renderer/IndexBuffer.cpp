@@ -9,7 +9,7 @@ namespace Wi
 {
 	namespace Render
 	{
-		std::shared_ptr<IndexBuffer> IndexBuffer::Create(uint32_t* indices, uint32_t size)
+		std::shared_ptr<IndexBuffer> IndexBuffer::Create(uint32_t* indices, uint32_t count)
 		{
 			switch (Renderer::GetAPI())
 			{
@@ -17,7 +17,7 @@ namespace Wi
 					WI_CORE_ASSERT(false, "Unspecified render API");
 					return nullptr;
 				case RenderAPI::OpenGL:
-					return std::make_shared<OpenGL::IndexBuffer>(indices, size);
+					return std::make_shared<OpenGL::IndexBuffer>(indices, count);
 			}
 
 			WI_CORE_ASSERT(false, "Unknown render API");

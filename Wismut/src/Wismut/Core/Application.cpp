@@ -9,32 +9,12 @@
 #include "Wismut/Renderer/BufferLayout.h"
 #include "Wismut/Renderer/IndexBuffer.h"
 #include "Wismut/Renderer/Shader.h"
+#include "Wismut/Renderer/VertexArray.h"
 #include "Wismut/Renderer/VertexBuffer.h"
 
 namespace Wi
 {
 	Application* Application::s_Instance = nullptr;
-
-	static GLenum ShaderDataTypeToOpenGLBaseType(Render::ShaderDataType type)
-	{
-		switch (type)
-		{
-			case Render::ShaderDataType::Float:    return GL_FLOAT;
-			case Render::ShaderDataType::Float2:   return GL_FLOAT;
-			case Render::ShaderDataType::Float3:   return GL_FLOAT;
-			case Render::ShaderDataType::Float4:   return GL_FLOAT;
-			case Render::ShaderDataType::Mat3:     return GL_FLOAT;
-			case Render::ShaderDataType::Mat4:     return GL_FLOAT;
-			case Render::ShaderDataType::Int:      return GL_INT;
-			case Render::ShaderDataType::Int2:     return GL_INT;
-			case Render::ShaderDataType::Int3:     return GL_INT;
-			case Render::ShaderDataType::Int4:     return GL_INT;
-			case Render::ShaderDataType::Bool:     return GL_BOOL;
-		}
-
-		WI_CORE_ASSERT(false, "Unknown ShaderDataType!");
-		return 0;
-	}
 
 	Application::Application()
 	{
@@ -53,10 +33,7 @@ namespace Wi
 
 	void Application::Run()
 	{
-		uint32_t vertexArray;
-
-		glGenVertexArrays(1, &vertexArray);
-		glBindVertexArray(vertexArray);
+		std::shared_ptr<Render::VertexArray> vertexArray = Render::VertexArray::Create();
 
 		float vertices[] = {
 			-0.5f, -0.5f, 0.0f,   1.0f, 0.0f, 0.0f,
@@ -69,10 +46,6 @@ namespace Wi
 		};
 
 		std::shared_ptr<Render::VertexBuffer> vertexBuffer = Render::VertexBuffer::Create(vertices, sizeof(vertices));
-		vertexBuffer->Bind();
-
-		std::shared_ptr<Render::IndexBuffer> indexBuffer = Render::IndexBuffer::Create(indices, 3);
-		indexBuffer->Bind();
 
 		Render::BufferLayout layout {
 			{ Render::ShaderDataType::Float3, "u_Position" },
@@ -80,35 +53,21 @@ namespace Wi
 		};
 
 		vertexBuffer->SetLayout(layout);
+		vertexArray->AddVertexBuffer(vertexBuffer);
 
-		uint32_t index = 0;
-		for (const auto& element : vertexBuffer->GetLayout())
-		{
-			glEnableVertexAttribArray(index++);
-			glVertexAttribPointer(
-				index, 
-				element.GetComponentCount(), 
-				ShaderDataTypeToOpenGLBaseType(element.Type), 
-				element.Normalized ? GL_TRUE : GL_FALSE, 
-				vertexBuffer->GetLayout().GetStride(), 
-				reinterpret_cast<const void*>(element.Offset)
-			);
-		}
-
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), 0);
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), reinterpret_cast<void*>(sizeof(float) * 3));
+		std::shared_ptr<Render::IndexBuffer> indexBuffer = Render::IndexBuffer::Create(indices, 3);
+		vertexArray->SetIndexBuffer(indexBuffer);
 
 		std::shared_ptr<Render::Shader> shader = Render::Shader::Create("assets/test.glsl");
-		shader->Bind();
 
 		while (m_Running)
 		{
 			glClearColor(0.1f, 0.1f, 0.1f, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
 
-			glDrawElements(GL_TRIANGLES, indexBuffer->GetCount(), GL_UNSIGNED_INT, 0);
+			shader->Bind();
+			vertexArray->Bind();
+			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
