@@ -1,19 +1,14 @@
 #pragma once
+#include "RendererAPI.h"
+#include "RenderCommand.h"
 
 namespace Wi
 {
-	enum class RenderAPI
-	{
-		None = 0,
-		OpenGL = 1
-	};
-
 	class Renderer
 	{
 	public:
-		static RenderAPI GetAPI() { return s_RenderAPI; }
-
-	private:
-		static RenderAPI s_RenderAPI;
+		static void BeginScene();
+		static void EndScene();
+		static void Submit(const std::shared_ptr<VertexArray>& vertexArray);
 	};
 }

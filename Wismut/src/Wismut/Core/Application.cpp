@@ -4,13 +4,8 @@
 
 #include "Assert.h"
 #include "Core.h"
-#include <glad/glad.h>
 
-#include "Wismut/Renderer/BufferLayout.h"
-#include "Wismut/Renderer/IndexBuffer.h"
-#include "Wismut/Renderer/Shader.h"
-#include "Wismut/Renderer/VertexArray.h"
-#include "Wismut/Renderer/VertexBuffer.h"
+#include "Wismut/Renderer/Renderer.h"
 
 namespace Wi
 {
@@ -33,41 +28,9 @@ namespace Wi
 
 	void Application::Run()
 	{
-		std::shared_ptr<VertexArray> vertexArray = VertexArray::Create();
-
-		float vertices[] = {
-			-0.5f, -0.5f, 0.0f,   1.0f, 0.0f, 0.0f,
-			 0.0f,  0.5f, 0.0f,   0.0f, 1.0f, 0.0f,
-			 0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f
-		};
-
-		uint32_t indices[] = {
-			0, 1, 2,
-		};
-
-		std::shared_ptr<VertexBuffer> vertexBuffer = VertexBuffer::Create(vertices, sizeof(vertices));
-
-		BufferLayout layout {
-			{ ShaderDataType::Float3, "u_Position" },
-			{ ShaderDataType::Float3, "u_Color" },
-		};
-
-		vertexBuffer->SetLayout(layout);
-		vertexArray->AddVertexBuffer(vertexBuffer);
-
-		std::shared_ptr<IndexBuffer> indexBuffer = IndexBuffer::Create(indices, 3);
-		vertexArray->SetIndexBuffer(indexBuffer);
-
-		std::shared_ptr<Shader> shader = Shader::Create("assets/test.glsl");
-
 		while (m_Running)
 		{
-			glClearColor(0.1f, 0.1f, 0.1f, 1);
-			glClear(GL_COLOR_BUFFER_BIT);
-
-			shader->Bind();
-			vertexArray->Bind();
-			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+			RenderCommand::Clear(glm::vec4(0.2f, 0.2f, 0.2f, 1.0f));
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();

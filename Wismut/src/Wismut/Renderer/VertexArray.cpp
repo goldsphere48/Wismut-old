@@ -8,13 +8,13 @@ namespace Wi
 {
 	std::shared_ptr<VertexArray> VertexArray::Create()
 	{
-		switch (Renderer::GetAPI())
+		switch (RendererAPI::GetAPI())
 		{
-		case RenderAPI::None:
-			WI_CORE_ASSERT(false, "Unspecified render API");
-			return nullptr;
-		case RenderAPI::OpenGL:
-			return std::make_shared<OpenGLVertexArray>();
+			case RendererAPI::API::None:
+				WI_CORE_ASSERT(false, "Unspecified render API");
+				return nullptr;
+			case RendererAPI::API::OpenGL:
+				return std::make_shared<OpenGLVertexArray>();
 		}
 
 		WI_CORE_ASSERT(false, "Unknown render API");

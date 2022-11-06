@@ -10,13 +10,13 @@ namespace Wi
 {
 	std::shared_ptr<Shader> Shader::Create(const std::string& filepath)
 	{
-		switch (Renderer::GetAPI())
+		switch (RendererAPI::GetAPI())
 		{
-		case RenderAPI::None:
-			WI_CORE_ASSERT(false, "Unspecified render API");
-			return nullptr;
-		case RenderAPI::OpenGL:
-			return std::make_shared<OpenGLShader>(filepath);
+			case RendererAPI::API::None:
+				WI_CORE_ASSERT(false, "Unspecified render API");
+				return nullptr;
+			case RendererAPI::API::OpenGL:
+				return std::make_shared<OpenGLShader>(filepath);
 		}
 
 		WI_CORE_ASSERT(false, "Unknown render API");
@@ -25,13 +25,13 @@ namespace Wi
 
 	std::shared_ptr<Shader> Shader::Create(const std::string& vertexSrc, const std::string& fragmentSource)
 	{
-		switch (Renderer::GetAPI())
+		switch (RendererAPI::GetAPI())
 		{
-		case RenderAPI::None:
-			WI_CORE_ASSERT(false, "Unspecified render API");
-			return nullptr;
-		case RenderAPI::OpenGL:
-			return std::make_shared<OpenGLShader>(vertexSrc, fragmentSource);
+			case RendererAPI::API::None:
+				WI_CORE_ASSERT(false, "Unspecified render API");
+				return nullptr;
+			case RendererAPI::API::OpenGL:
+				return std::make_shared<OpenGLShader>(vertexSrc, fragmentSource);
 		}
 
 		WI_CORE_ASSERT(false, "Unknown render API");

@@ -10,7 +10,7 @@ project "Sandbox"
 	files
 	{
 		"src/**.cpp",
-		"src/**.h"
+		"src/**.h",
 	}
 
 	links
@@ -23,7 +23,7 @@ project "Sandbox"
 		"%{wks.location}/Wismut/src",
 		"%{wks.location}/Wismut/vendor/spdlog/include",
 		"%{wks.location}/Wismut/vendor",
-		"%{IncludeDirs.glm}"
+		"%{wks.location}/Wismut/%{IncludeDirs.glm}"
 	}
 
 	filter "system:windows"
