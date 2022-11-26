@@ -4,6 +4,7 @@
 
 #include "Assert.h"
 #include "Core.h"
+#include "Wismut/Renderer/RenderCommand.h"
 
 #include "Wismut/Renderer/Renderer.h"
 
