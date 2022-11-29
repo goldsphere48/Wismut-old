@@ -15,7 +15,9 @@ project "Wismut"
 		"src/**.cpp",
 		"src/**.h",
 		"vendor/glm/glm/**.hpp",
-		"vendor/glm/glm/**.inl"
+		"vendor/glm/glm/**.inl",
+		"vendor/stb_image/**.cpp",
+		"vendor/stb_image/**.h",
 	}
 
 	includedirs
@@ -26,6 +28,7 @@ project "Wismut"
 		"%{IncludeDirs.glad}",
 		"%{IncludeDirs.ImGui}",
 		"%{IncludeDirs.glm}",
+		"%{IncludeDirs.stb_image}",
 	}
 
 	links

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "glad/glad.h"
 #include "Wismut/Renderer/RenderContext.h"
 
 struct GLFWwindow;

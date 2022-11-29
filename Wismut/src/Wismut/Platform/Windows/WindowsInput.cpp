@@ -36,13 +36,13 @@ bool Wi::WindowsInput::IsMouseButtonReleasedImpl(int button)
 float Wi::WindowsInput::GetMouseXImpl()
 {
 	auto [x, y] = GetMousePositionImpl();
-	return y;
+	return x;
 }
 
 float Wi::WindowsInput::GetMouseYImpl()
 {
 	auto [x, y] = GetMousePositionImpl();
-	return x;
+	return y;
 }
 
 std::pair<float, float> Wi::WindowsInput::GetMousePositionImpl()

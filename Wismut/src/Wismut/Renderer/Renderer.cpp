@@ -1,7 +1,6 @@
 #include "wipch.h"
 #include "Renderer.h"
 #include "Shader.h"
-#include "Camera.h"
 #include "OrthographicCamera.h"
 #include "PerspectiveCamera.h"
 #include "RenderCommand.h"
@@ -11,9 +10,9 @@ namespace Wi
 {
 	Renderer::SceneData Renderer::s_SceneData;
 
-	void Renderer::BeginScene(const std::shared_ptr<OrthographicCamera>& camera)
+	void Renderer::BeginScene(const OrthographicCamera& camera)
 	{
-		s_SceneData.ViewProjectionMatrix = camera->GetViewProjectionMatrix();
+		s_SceneData.ViewProjectionMatrix = camera.GetViewProjectionMatrix();
 	}
 
 	void Renderer::BeginScene(const PerspectiveCamera& camera)

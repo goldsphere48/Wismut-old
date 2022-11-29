@@ -8,6 +8,7 @@ namespace Wi
 	PerspectiveCamera::PerspectiveCamera(float aspectRatio, float fov, float near, float far)
 	{
 		m_ProjectionMatrix = glm::perspective(fov, aspectRatio, near, far);
+		UpdateView();
 	}
 
 	const glm::mat4& PerspectiveCamera::GetView() const

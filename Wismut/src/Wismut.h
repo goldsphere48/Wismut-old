@@ -10,6 +10,7 @@
 #include <Wismut/Renderer/OrthographicCamera.h>
 #include <Wismut/Renderer/PerspectiveCamera.h>
 #include <Wismut/Renderer/PerspectiveCameraController.h>
+#include <Wismut/Renderer/OrthographicCameraController.h>
 #include <Wismut/Renderer/IndexBuffer.h>
 #include <Wismut/Renderer/VertexArray.h>
 #include <Wismut/Renderer/VertexBuffer.h>
@@ -17,3 +18,4 @@
 #include <Wismut/Renderer/RenderContext.h>
 #include <Wismut/Renderer/Renderer.h>
 #include <Wismut/Renderer/RendererAPI.h>
+#include <Wismut/Renderer/Texture.h>

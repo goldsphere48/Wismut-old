@@ -3,7 +3,9 @@
 
 #include "glm/ext/matrix_clip_space.hpp"
 #include "glm/ext/matrix_transform.hpp"
+#include "glm/gtc/quaternion.hpp"
 #include "ImGui/imgui.h"
+#include "Wismut/Events/KeyEvent.h"
 #include "Wismut/Renderer/PerspectiveCameraController.h"
 #include "Wismut/Renderer/Renderer.h"
 #include "Wismut/Renderer/Shader.h"
@@ -16,14 +18,14 @@ public:
 		: Wi::Layer("Layer"), m_Time(0), m_ScaleX(1), m_ScaleY(1), m_ScaleZ(1)
 	{
 		float vertices[] = {
-			-0.5f,  0.5f,  0.0f, 1, 0, 0,
-			-0.5f, -0.5f,  0.0f, 0, 1, 0,
-			 0.5f,  0.5f,  0.0f, 0, 0, 1,
-			 0.5f, -0.5f,  0.0f, 1, 0, 1,
-			-0.5f,  0.5f, -1.0f, 1, 1, 0,
-			-0.5f, -0.5f, -1.0f, 0, 1, 1,
-			 0.5f,  0.5f, -1.0f, 1, 1, 1,
-			 0.5f, -0.5f, -1.0f, 1, 1, 0,
+			-0.5f,  0.5f,  0.5f, 0, 1,
+			-0.5f, -0.5f,  0.5f, 0, 0,
+			 0.5f,  0.5f,  0.5f, 1, 1,
+			 0.5f, -0.5f,  0.5f, 1, 0,
+			-0.5f,  0.5f, -0.5f, 0, 1,
+			-0.5f, -0.5f, -0.5f, 0, 1,
+			 0.5f,  0.5f, -0.5f, 1, 1,
+			 0.5f, -0.5f, -0.5f, 0, 0,
 		};
 
 		uint32_t indices[] = {
@@ -43,7 +45,7 @@ public:
 		auto layout = Wi::BufferLayout
 		{
 			{ Wi::ShaderDataType::Float3, "u_Position" },
-			{ Wi::ShaderDataType::Float3, "u_Color" },
+			{ Wi::ShaderDataType::Float2, "u_TexCoords" },
 		};
 
 		vertexBuffer->SetLayout(layout);
@@ -52,45 +54,77 @@ public:
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
 		m_Shader = Wi::Shader::Create("assets/test.glsl");
+		m_TextureShader = Wi::Shader::Create("assets/texture.glsl");
+		m_Texture = Wi::Texture2D::Create("assets/oleg.png");
 
-		m_Camera = std::make_shared<Wi::OrthographicCamera>(-2.0f, 1.5f, 2.0f, -1.5f);
-		m_CameraPers = std::make_shared<Wi::PerspectiveCameraController>(1600 / 900, 0.1f, 100.0f);
+		m_Texture->Bind();
+		m_TextureShader->Bind();
+		m_TextureShader->SetInt("u_TextCoords", 0);
+
+		m_CameraOrth = std::make_shared<Wi::OrthographicCameraController>(1600.0f / 900.0f);
+		m_CameraPers = std::make_shared<Wi::PerspectiveCameraController>(1600.0f / 900.0f, 0.1f, 100.0f);
 	}
 
 	void OnEvent(Wi::Event& event) override
 	{
-		m_CameraPers->OnEvent(event);
+		if (m_IsPerspectiveCamera)
+			m_CameraPers->OnEvent(event);
+		else
+			m_CameraOrth->OnEvent(event);
+
+		Wi::EventDispatcher dispatcher(event);
+		dispatcher.Dispatch<Wi::KeyPressedEvent>(WI_BIND_EVENT_FN(MyLayer::OnKeyPressedEvent));
+	}
+
+	bool OnKeyPressedEvent(Wi::KeyPressedEvent& event)
+	{
+		if (event.GetKey() == Wi::Key::Tab)
+		{
+			m_IsPerspectiveCamera = !m_IsPerspectiveCamera;
+			return true;
+		}
+
+		return false;
 	}
 
 	void OnUpdate() override
 	{
 		glm::mat4 trans = glm::identity<glm::mat4>();
-		trans = glm::rotate(trans, m_Time, glm::vec3(1, 1, 1));
-		m_CameraPers->OnUpdate();
-		Wi::Renderer::BeginScene(m_CameraPers->GetCamera());
-		Wi::Renderer::Submit(m_VertexArray, m_Shader, trans);
+		trans = glm::translate(trans, glm::vec3(0, 0, -1.0f));
+
+		if (m_IsPerspectiveCamera) 
+		{
+			m_CameraPers->OnUpdate();
+			Wi::Renderer::BeginScene(m_CameraPers->GetCamera());
+		}
+		else
+		{
+			m_CameraOrth->OnUpdate();
+			Wi::Renderer::BeginScene(m_CameraOrth->GetCamera());
+		}
+		Wi::Renderer::Submit(m_VertexArray, m_TextureShader, trans);
 		Wi::Renderer::EndScene();
 	}
 
 	void OnImGuiRender() override
 	{
-		ImGui::Begin("Rotate");
-		float vMin = -10;
-		float vMax = 10;
-		ImGui::SliderScalar("Rotation", ImGuiDataType_Float, &m_Time, &vMin, &vMax);
-		ImGui::SliderScalar("Scale X", ImGuiDataType_Float, &m_ScaleX, &vMin, &vMax);
-		ImGui::SliderScalar("Scale Y", ImGuiDataType_Float, &m_ScaleY, &vMin, &vMax);
-		ImGui::SliderScalar("Scale Z", ImGuiDataType_Float, &m_ScaleZ, &vMin, &vMax);
-		ImGui::SliderScalar("Pitch", ImGuiDataType_Float, &m_Pitch, &vMin, &vMax);
-		ImGui::SliderScalar("Yaw", ImGuiDataType_Float, &m_Yaw, &vMin, &vMax);
+		ImGui::Begin("Camera");
+		ImGui::Text("Camera Position");
+		glm::vec3 pos = m_CameraPers->GetCamera().GetPosition();
+		ImGui::Text("X: %f, Y: %f, Z: %f", pos.x, pos.y, pos.z);
+		ImGui::Text("Camera Rotation");
+		glm::vec3 rot = glm::eulerAngles(m_CameraPers->GetCamera().GetOrientation());
+		ImGui::Text("X: %f, Y: %f, Z: %f", rot.x, rot.y, rot.z);
 		ImGui::End();
 	}
 
 private:
 	std::shared_ptr<Wi::VertexArray> m_VertexArray;
 	std::shared_ptr<Wi::Shader> m_Shader;
-	std::shared_ptr<Wi::OrthographicCamera> m_Camera;
+	std::shared_ptr<Wi::Shader> m_TextureShader;
+	std::shared_ptr<Wi::OrthographicCameraController> m_CameraOrth;
 	std::shared_ptr<Wi::PerspectiveCameraController> m_CameraPers;
+	std::shared_ptr<Wi::Texture2D> m_Texture;
 	glm::mat4 m_Transformation;
 	float m_Time;
 	float m_ScaleX;
@@ -98,6 +132,7 @@ private:
 	float m_ScaleZ;
 	float m_Pitch = 0;
 	float m_Yaw = 0;
+	bool m_IsPerspectiveCamera = true;
 };
 
 class MyApplication : public Wi::Application

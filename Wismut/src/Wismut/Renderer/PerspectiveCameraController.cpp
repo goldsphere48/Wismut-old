@@ -3,12 +3,13 @@
 
 #include "Wismut/Core/Core.h"
 #include "Wismut/Core/Input.h"
+#include "Wismut/Core/Log.h"
 #include "Wismut/Events/KeyEvent.h"
 
 namespace Wi
 {
-	PerspectiveCameraController::PerspectiveCameraController(float aspectRatio, float near, float far)
-		: m_Camera(aspectRatio, 45.0f, near, far), m_AspectRatio(aspectRatio)
+	PerspectiveCameraController::PerspectiveCameraController(float aspectRatio, float zNear, float zFar)
+		: m_Camera(aspectRatio, glm::radians(45.0f), zNear, zFar), m_AspectRatio(aspectRatio)
 	{
 	}
 
@@ -28,20 +29,36 @@ namespace Wi
 
 	bool PerspectiveCameraController::OnMousePressed(MouseButtonPressedEvent& event)
 	{
-		if (event.GetMouseButton() == Key::ButtonLeft)
+		if (event.GetMouseButton() == Key::ButtonRight)
 		{
 			m_IsRotating = true;
+			m_IsDragging = false;
 			m_InitialMousePosition = glm::vec2(Input::GetMouseX(), Input::GetMouseY());
 			return true;
 		}
+
+		if (event.GetMouseButton() == Key::ButtonMiddle)
+		{
+			m_IsDragging = true;
+			m_IsRotating = false;
+			m_InitialMousePosition = glm::vec2(Input::GetMouseX(), Input::GetMouseY());
+			return true;
+		}
+
 		return false;
 	}
 
 	bool PerspectiveCameraController::OnMouseReleased(MouseButtonReleasedEvent& event)
 	{
-		if (event.GetMouseButton() == Key::ButtonLeft)
+		if (event.GetMouseButton() == Key::ButtonRight)
 		{
 			m_IsRotating = false;
+			return true;
+		}
+
+		if (event.GetMouseButton() == Key::ButtonMiddle)
+		{
+			m_IsDragging = false;
 			return true;
 		}
 
@@ -50,12 +67,19 @@ namespace Wi
 
 	bool PerspectiveCameraController::OnMouseMoved(MouseMovedEvent& event)
 	{
+		glm::vec2 mouse = glm::vec2(Input::GetMouseX(), Input::GetMouseY());
+		glm::vec2 delta = mouse - m_InitialMousePosition;
+		m_InitialMousePosition = mouse;
+
 		if (m_IsRotating)
 		{
-			glm::vec2 mouse = glm::vec2(Input::GetMouseX(), Input::GetMouseY());
-			glm::vec2 delta = mouse - m_InitialMousePosition;
-			m_InitialMousePosition = mouse;
-			m_Camera.SetRotation(m_Camera.GetPitch() + delta.x * 0.002f, m_Camera.GetYaw() + delta.y * 0.002f);
+			m_Camera.SetRotation(m_Camera.GetPitch() + delta.y * 0.002f, m_Camera.GetYaw() + delta.x * 0.002f);
+			return true;
+		}
+
+		if (m_IsDragging)
+		{
+			m_Camera.SetPosition(m_Camera.GetPosition() - m_Camera.GetOrientation() * glm::vec3(delta.x, -delta.y, 0.0f) * m_TranslationSpeed);
 			return true;
 		}
 
@@ -64,7 +88,8 @@ namespace Wi
 
 	bool PerspectiveCameraController::OnMouseScroll(MouseScrolledEvent& event)
 	{
-		return false;
+		m_Camera.SetPosition(m_Camera.GetPosition() - m_Camera.GetForwardDirection() * event.GetOffsetY() * 0.25f);
+		return true;
 	}
 
 	void PerspectiveCameraController::OnUpdate()

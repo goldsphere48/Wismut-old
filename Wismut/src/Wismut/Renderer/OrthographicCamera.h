@@ -6,7 +6,7 @@ namespace Wi
 	class OrthographicCamera
 	{
 	public:
-		OrthographicCamera(float left, float top, float right, float bottom);
+		OrthographicCamera(float left, float right, float bottom, float top);
 
 	public:
 		void SetProjection(float left, float right, float bottom, float top);
@@ -15,6 +15,7 @@ namespace Wi
 
 		const glm::mat4& GetProjectionMatrix() const;
 		const glm::mat4& GetViewMatrix() const;
+		const glm::vec3& GetPosition() const { return m_Position; }
 		glm::mat4 GetViewProjectionMatrix() const;
 
 	private:

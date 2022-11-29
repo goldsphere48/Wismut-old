@@ -57,8 +57,7 @@ void Wi::ImGuiLayer::OnUpdate()
 
 void Wi::ImGuiLayer::OnImGuiRender()
 {
-	static bool show = true;
-	ImGui::ShowDemoWindow(&show);
+
 }
 
 void Wi::ImGuiLayer::Begin()
