@@ -16,6 +16,9 @@ namespace Wi
 	{
 		glfwMakeContextCurrent(m_Window);
 		int status = gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress));
+
+		glEnable(GL_DEPTH_TEST);
+
 		WI_CORE_ASSERT(status, "Failed to load glad");
 
 		WI_CORE_INFO("Vendor: {0}", glGetString(GL_VENDOR));

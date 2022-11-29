@@ -17,7 +17,7 @@ namespace Wi
 		virtual void OnDetach() {}
 		virtual void OnUpdate() {}
 		virtual void OnImGuiRender() {}
-		virtual void OnEvent(const Event& event) {}
+		virtual void OnEvent(Event& event) {}
 
 		const std::string& GetName() { return m_DebugName; }
 

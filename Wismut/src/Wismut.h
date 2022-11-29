@@ -5,3 +5,15 @@
 #include <Wismut/Core/EntryPoint.h>
 #include <Wismut/Core/Log.h>
 #include <Wismut/ImGui/ImGuiLayer.h>
+#include <Wismut/Renderer/Shader.h>
+#include <Wismut/Renderer/BufferLayout.h>
+#include <Wismut/Renderer/OrthographicCamera.h>
+#include <Wismut/Renderer/PerspectiveCamera.h>
+#include <Wismut/Renderer/PerspectiveCameraController.h>
+#include <Wismut/Renderer/IndexBuffer.h>
+#include <Wismut/Renderer/VertexArray.h>
+#include <Wismut/Renderer/VertexBuffer.h>
+#include <Wismut/Renderer/RenderCommand.h>
+#include <Wismut/Renderer/RenderContext.h>
+#include <Wismut/Renderer/Renderer.h>
+#include <Wismut/Renderer/RendererAPI.h>

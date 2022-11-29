@@ -13,6 +13,8 @@ namespace Wi
 			
 		}
 
+		KeyCode GetKey() { return Key; }
+
 	protected:
 		KeyCode Key;
 	};
