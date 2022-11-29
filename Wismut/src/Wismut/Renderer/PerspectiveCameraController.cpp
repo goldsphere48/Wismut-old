@@ -73,13 +73,13 @@ namespace Wi
 
 		if (m_IsRotating)
 		{
-			m_Camera.SetRotation(m_Camera.GetPitch() + delta.y * 0.002f, m_Camera.GetYaw() + delta.x * 0.002f);
+			m_Camera.SetRotation(m_Camera.GetPitch() + delta.y * m_DragSpeed, m_Camera.GetYaw() + delta.x * m_DragSpeed);
 			return true;
 		}
 
 		if (m_IsDragging)
 		{
-			m_Camera.SetPosition(m_Camera.GetPosition() - m_Camera.GetOrientation() * glm::vec3(delta.x, -delta.y, 0.0f) * m_TranslationSpeed);
+			m_Camera.SetPosition(m_Camera.GetPosition() - m_Camera.GetOrientation() * glm::vec3(delta.x, -delta.y, 0.0f) * m_DragSpeed);
 			return true;
 		}
 
@@ -92,36 +92,36 @@ namespace Wi
 		return true;
 	}
 
-	void PerspectiveCameraController::OnUpdate()
+	void PerspectiveCameraController::OnUpdate(Timestep ts)
 	{
 		if (Input::IsKeyPressed(Key::W))
 		{
-			m_Camera.SetPosition(m_Camera.GetPosition() - m_Camera.GetForwardDirection() * m_TranslationSpeed);
+			m_Camera.SetPosition(m_Camera.GetPosition() - m_Camera.GetForwardDirection() * (m_TranslationSpeed * ts));
 		}
 
 		if (Input::IsKeyPressed(Key::S))
 		{
-			m_Camera.SetPosition(m_Camera.GetPosition() + m_Camera.GetForwardDirection() * m_TranslationSpeed);
+			m_Camera.SetPosition(m_Camera.GetPosition() + m_Camera.GetForwardDirection() * (m_TranslationSpeed * ts));
 		}
 
 		if (Input::IsKeyPressed(Key::A))
 		{
-			m_Camera.SetPosition(m_Camera.GetPosition() - m_Camera.GetRightDirection() * m_TranslationSpeed);
+			m_Camera.SetPosition(m_Camera.GetPosition() - m_Camera.GetRightDirection() * (m_TranslationSpeed * ts));
 		}
 
 		if (Input::IsKeyPressed(Key::D))
 		{
-			m_Camera.SetPosition(m_Camera.GetPosition() + m_Camera.GetRightDirection() * m_TranslationSpeed);
+			m_Camera.SetPosition(m_Camera.GetPosition() + m_Camera.GetRightDirection() * (m_TranslationSpeed * ts));
 		}
 
 		if (Input::IsKeyPressed(Key::Space))
 		{
-			m_Camera.SetPosition(m_Camera.GetPosition() + glm::vec3(0, 1, 0) * m_TranslationSpeed);
+			m_Camera.SetPosition(m_Camera.GetPosition() + glm::vec3(0, 1, 0) * (m_TranslationSpeed * ts));
 		}
 
 		if (Input::IsKeyPressed(Key::LeftShift))
 		{
-			m_Camera.SetPosition(m_Camera.GetPosition() - glm::vec3(0, 1, 0) * m_TranslationSpeed);
+			m_Camera.SetPosition(m_Camera.GetPosition() - glm::vec3(0, 1, 0) * (m_TranslationSpeed * ts));
 		}
 	}
 }

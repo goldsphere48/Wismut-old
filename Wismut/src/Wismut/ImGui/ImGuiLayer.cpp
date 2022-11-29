@@ -9,7 +9,7 @@
 #include "Wismut/Core/Application.h"
 
 Wi::ImGuiLayer::ImGuiLayer()
-	: Layer("ImGui"), m_Time(0)
+	: Layer("ImGui")
 {
 }
 
@@ -47,12 +47,10 @@ void Wi::ImGuiLayer::OnDetach()
 	ImGui::DestroyContext();
 }
 
-void Wi::ImGuiLayer::OnUpdate()
+void Wi::ImGuiLayer::OnUpdate(Timestep ts)
 {
-	float time = static_cast<float>(glfwGetTime());
 	ImGuiIO& io = ImGui::GetIO();
-	io.DeltaTime = m_Time > 0.0f ? (time - m_Time) : (1.0f / 60.0f);
-	m_Time = time;
+	io.DeltaTime = ts;
 }
 
 void Wi::ImGuiLayer::OnImGuiRender()

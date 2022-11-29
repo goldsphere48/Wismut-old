@@ -6,6 +6,7 @@
 #include <cmath>
 
 #include "Wismut/Core/Log.h"
+#include "Wismut/Utils/Time.h"
 
 namespace Wi
 {
@@ -17,16 +18,16 @@ namespace Wi
 
 	}
 
-	void OrthographicCameraController::OnUpdate()
+	void OrthographicCameraController::OnUpdate(Timestep ts)
 	{
 		if (Input::IsKeyPressed(Key::Q))
 		{
-			m_Rotation -= m_RotationSpeed;
+			m_Rotation -= m_RotationSpeed * ts;
 		}
 
 		if (Input::IsKeyPressed(Key::E))
 		{
-			m_Rotation += m_RotationSpeed;
+			m_Rotation += m_RotationSpeed * ts;
 		}
 
 		if (m_Rotation > 180.0f)
@@ -75,8 +76,8 @@ namespace Wi
 			glm::vec2 mouse = glm::vec2(Input::GetMouseX(), Input::GetMouseY());
 			glm::vec2 delta = mouse - m_InitialMousePosition;
 			m_InitialMousePosition = mouse;
-			m_CameraPosition.x -= delta.x * m_TranslationSpeed;
-			m_CameraPosition.y += delta.y * m_TranslationSpeed;
+			m_CameraPosition.x -= delta.x * m_DragSpeed;
+			m_CameraPosition.y += delta.y * m_DragSpeed;
 			return true;
 		}
 

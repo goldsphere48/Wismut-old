@@ -29,6 +29,7 @@ namespace Wi
 		std::unique_ptr<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running;
+		float m_LastFrameTime = 0.0f;
 	};
 
 	Application* CreateApplication();

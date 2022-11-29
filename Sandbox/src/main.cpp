@@ -87,19 +87,19 @@ public:
 		return false;
 	}
 
-	void OnUpdate() override
+	void OnUpdate(Wi::Timestep ts) override
 	{
 		glm::mat4 trans = glm::identity<glm::mat4>();
 		trans = glm::translate(trans, glm::vec3(0, 0, -1.0f));
 
 		if (m_IsPerspectiveCamera) 
 		{
-			m_CameraPers->OnUpdate();
+			m_CameraPers->OnUpdate(ts);
 			Wi::Renderer::BeginScene(m_CameraPers->GetCamera());
 		}
 		else
 		{
-			m_CameraOrth->OnUpdate();
+			m_CameraOrth->OnUpdate(ts);
 			Wi::Renderer::BeginScene(m_CameraOrth->GetCamera());
 		}
 		Wi::Renderer::Submit(m_VertexArray, m_TextureShader, trans);

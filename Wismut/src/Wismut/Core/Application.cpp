@@ -4,9 +4,11 @@
 
 #include "Assert.h"
 #include "Core.h"
+#include "Timestep.h"
 #include "Wismut/Renderer/RenderCommand.h"
 
 #include "Wismut/Renderer/Renderer.h"
+#include "Wismut/Utils/Time.h"
 
 namespace Wi
 {
@@ -31,10 +33,14 @@ namespace Wi
 	{
 		while (m_Running)
 		{
+			float time = Time::GetTime();
+			Timestep ts = time - m_LastFrameTime;
+			m_LastFrameTime = time;
+
 			RenderCommand::Clear(glm::vec4(0.2f, 0.2f, 0.2f, 1.0f));
 
 			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate();
+				layer->OnUpdate(ts);
 
 			m_ImGuiLayer->Begin();
 			for (Layer* layer : m_LayerStack)
