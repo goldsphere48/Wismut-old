@@ -20,7 +20,8 @@ namespace Wi
 		}
 	}
 
-	OpenGLShader::OpenGLShader(const std::string& vertexSource, const std::string& fragmentSource)
+	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSource, const std::string& fragmentSource)
+		: m_Name(name)
 	{
 		std::unordered_map<GLenum, std::string> sources;
 		sources[GL_VERTEX_SHADER] = vertexSource;
@@ -30,6 +31,8 @@ namespace Wi
 
 	OpenGLShader::OpenGLShader(const std::string& filepath)
 	{
+		const std::filesystem::path path(filepath);
+		m_Name = path.stem().string();
 		auto shaderSources = SplitShader(ReadFile(filepath));
 		CreateProgram(std::move(shaderSources));
 	}
@@ -123,8 +126,10 @@ namespace Wi
 	void OpenGLShader::CreateProgram(std::unordered_map<GLenum, std::string>&& sources)
 	{
 		const uint32_t program = glCreateProgram();
-		std::vector<uint32_t> shaderIDs;
+		WI_CORE_ASSERT(sources.size() <= 2, "Unsupported count of shader types");
+		std::array<uint32_t, 2> shaderIDs;
 
+		int shaderIndex = 0;
 		for (auto [type, source] : sources)
 		{
 			uint32_t id = glCreateShader(type);
@@ -153,7 +158,7 @@ namespace Wi
 			}
 
 			glAttachShader(program, id);
-			shaderIDs.push_back(id);
+			shaderIDs[shaderIndex++] = id;
 		}
 
 		glLinkProgram(program);

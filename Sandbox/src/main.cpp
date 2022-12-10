@@ -53,13 +53,15 @@ public:
 		m_VertexArray->AddVertexBuffer(vertexBuffer);
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
-		m_Shader = Wi::Shader::Create("assets/test.glsl");
-		m_TextureShader = Wi::Shader::Create("assets/texture.glsl");
+		Wi::Renderer::GetShaderLibrary().Load("assets/test.glsl");
+		Wi::Renderer::GetShaderLibrary().Load("assets/texture.glsl");
+
 		m_Texture = Wi::Texture2D::Create("assets/wow.png");
 
 		m_Texture->Bind();
-		m_TextureShader->Bind();
-		m_TextureShader->SetInt("u_TextCoords", 0);
+		const auto& shader = Wi::Renderer::GetShaderLibrary().Get("texture");
+		shader->Bind();
+		shader->SetInt("u_TextCoords", 0);
 
 		m_CameraOrth = std::make_shared<Wi::OrthographicCameraController>(1600.0f / 900.0f);
 		m_CameraPers = std::make_shared<Wi::PerspectiveCameraController>(1600.0f / 900.0f, 0.1f, 100.0f);
@@ -102,7 +104,10 @@ public:
 			m_CameraOrth->OnUpdate(ts);
 			Wi::Renderer::BeginScene(m_CameraOrth->GetCamera());
 		}
-		Wi::Renderer::Submit(m_VertexArray, m_TextureShader, trans);
+
+		const auto& shader = Wi::Renderer::GetShaderLibrary().Get("texture");
+
+		Wi::Renderer::Submit(m_VertexArray, shader, trans);
 		Wi::Renderer::EndScene();
 	}
 
@@ -120,8 +125,6 @@ public:
 
 private:
 	std::shared_ptr<Wi::VertexArray> m_VertexArray;
-	std::shared_ptr<Wi::Shader> m_Shader;
-	std::shared_ptr<Wi::Shader> m_TextureShader;
 	std::shared_ptr<Wi::OrthographicCameraController> m_CameraOrth;
 	std::shared_ptr<Wi::PerspectiveCameraController> m_CameraPers;
 	std::shared_ptr<Wi::Texture2D> m_Texture;

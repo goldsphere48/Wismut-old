@@ -2,7 +2,6 @@
 #include "Wismut/Renderer/OrthographicCamera.h"
 #include <glm/ext/matrix_clip_space.hpp>
 #include <glm/gtx/transform.hpp>
-
 #include "glm/gtx/quaternion.hpp"
 
 namespace Wi

@@ -4,6 +4,7 @@
 namespace Wi
 {
 	Renderer::SceneData Renderer::s_SceneData;
+	ShaderLibrary Renderer::m_ShaderLibrary;
 
 	void Renderer::Init()
 	{

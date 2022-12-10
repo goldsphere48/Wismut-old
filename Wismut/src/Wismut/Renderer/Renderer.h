@@ -1,4 +1,5 @@
 #pragma once
+#include "ShaderLibrary.h"
 #include "Wismut/Renderer/PerspectiveCamera.h"
 #include "Wismut/Renderer/OrthographicCamera.h"
 #include "Wismut/Renderer/Shader.h"
@@ -16,6 +17,8 @@ namespace Wi
 		static void EndScene();
 		static void Submit(const Ref<VertexArray>& vertexArray, const Ref<Shader>& shader, glm::mat4 transform);
 
+		static ShaderLibrary& GetShaderLibrary() { return m_ShaderLibrary; }
+
 	private:
 		struct SceneData
 		{
@@ -23,5 +26,6 @@ namespace Wi
 		};
 
 		static SceneData s_SceneData;
+		static ShaderLibrary m_ShaderLibrary;
 	};
 }

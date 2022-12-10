@@ -20,7 +20,7 @@ namespace Wi
 		return nullptr;
 	}
 
-	Ref<Shader> Shader::Create(const std::string& vertexSrc, const std::string& fragmentSource)
+	Ref<Shader> Shader::Create(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSource)
 	{
 		switch (RendererAPI::GetAPI())
 		{
@@ -28,7 +28,7 @@ namespace Wi
 				WI_CORE_ASSERT(false, "Unspecified render API");
 				return nullptr;
 			case RendererAPI::API::OpenGL:
-				return CreateRef<OpenGLShader>(vertexSrc, fragmentSource);
+				return CreateRef<OpenGLShader>(name, vertexSrc, fragmentSource);
 		}
 
 		WI_CORE_ASSERT(false, "Unknown render API");

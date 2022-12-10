@@ -20,3 +20,4 @@
 #include <Wismut/Renderer/RendererAPI.h>
 #include <Wismut/Renderer/Texture.h>
 #include <Wismut/Core/Timestep.h>
+#include <Wismut/Renderer/ShaderLibrary.h>
