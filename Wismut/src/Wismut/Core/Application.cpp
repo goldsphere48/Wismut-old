@@ -18,6 +18,8 @@ namespace Wi
 		m_Window = Window::Create();
 		m_Window->SetEventCallback(WI_BIND_EVENT_FN(Application::OnEvent));
 
+		Renderer::Init();
+
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
 

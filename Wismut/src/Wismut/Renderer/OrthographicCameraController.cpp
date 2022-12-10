@@ -71,8 +71,7 @@ namespace Wi
 			glm::vec2 mouse = glm::vec2(Input::GetMouseX(), Input::GetMouseY());
 			glm::vec2 delta = mouse - m_InitialMousePosition;
 			m_InitialMousePosition = mouse;
-			m_CameraPosition.x -= delta.x * m_DragSpeed;
-			m_CameraPosition.y += delta.y * m_DragSpeed;
+			m_CameraPosition -= m_Camera.GetOrientation() * glm::vec3(delta.x, -delta.y, 0.0f) * m_DragSpeed;
 			return true;
 		}
 

@@ -55,7 +55,7 @@ public:
 
 		m_Shader = Wi::Shader::Create("assets/test.glsl");
 		m_TextureShader = Wi::Shader::Create("assets/texture.glsl");
-		m_Texture = Wi::Texture2D::Create("assets/oleg.png");
+		m_Texture = Wi::Texture2D::Create("assets/wow.png");
 
 		m_Texture->Bind();
 		m_TextureShader->Bind();

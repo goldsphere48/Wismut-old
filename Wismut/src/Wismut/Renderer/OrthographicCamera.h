@@ -1,5 +1,6 @@
 #pragma once
 #include <glm/glm.hpp>
+#include <glm/detail/type_quat.hpp>
 
 namespace Wi
 {
@@ -16,7 +17,9 @@ namespace Wi
 		const glm::mat4& GetProjectionMatrix() const;
 		const glm::mat4& GetViewMatrix() const;
 		const glm::vec3& GetPosition() const { return m_Position; }
+		const glm::quat GetOrientation() const; 
 		glm::mat4 GetViewProjectionMatrix() const;
+		const float GetRotation() const { return m_Rotation; }
 
 	private:
 		void UpdateView();

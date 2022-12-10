@@ -10,6 +10,7 @@ namespace Wi
 	class Renderer
 	{
 	public:
+		static void Init();
 		static void BeginScene(const OrthographicCamera& camera);
 		static void BeginScene(const PerspectiveCamera& camera);
 		static void EndScene();

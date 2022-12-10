@@ -3,6 +3,8 @@
 #include <glm/ext/matrix_clip_space.hpp>
 #include <glm/gtx/transform.hpp>
 
+#include "glm/gtx/quaternion.hpp"
+
 namespace Wi
 {
 	OrthographicCamera::OrthographicCamera(float left, float right, float bottom, float top)
@@ -40,6 +42,11 @@ namespace Wi
 		return m_ViewMatrix;
 	}
 
+	const glm::quat OrthographicCamera::GetOrientation() const
+	{
+		return glm::quat(glm::vec3(0.0f, 0.0f, -m_Rotation));
+	}
+
 	glm::mat4 OrthographicCamera::GetViewProjectionMatrix() const
 	{
 		return m_ProjectionMatrix * m_ViewMatrix;
@@ -47,7 +54,7 @@ namespace Wi
 
 	void OrthographicCamera::UpdateView()
 	{
-		glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_Position) * glm::rotate(glm::mat4(1.0f), m_Rotation, glm::vec3(0, 0, 1));
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_Position) * glm::toMat4(GetOrientation());
 		m_ViewMatrix = glm::inverse(transform);
 	}
 }

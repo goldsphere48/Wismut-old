@@ -16,6 +16,11 @@ namespace Wi
 			s_RendererAPI->Clear(color);
 		}
 
+		static void Init()
+		{
+			s_RendererAPI->Init();
+		}
+
 	private:
 		static Scope<RendererAPI> s_RendererAPI;
 	};

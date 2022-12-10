@@ -28,7 +28,7 @@ namespace Wi
 		glm::vec2 m_InitialMousePosition = { 0, 0 };
 		glm::vec3 m_CameraPosition = { 0, 0, 0 };
 		float m_Rotation = 0.0f;
-		float m_RotationSpeed = 0.01f;
+		float m_RotationSpeed = 0.5f;
 		float m_TranslationSpeed = 5.0f;
 		float m_DragSpeed = 0.002f;
 		bool m_IsDragging = false;
