@@ -1,15 +1,9 @@
 #include "wipch.h"
-#include "WindowsWindow.h"
-#include <Wismut/Core/Log.h>
-#include <Wismut/Core/Core.h>
-#include <Wismut/Core/Assert.h>
-
+#include "Wismut/Platform/Windows/WindowsWindow.h"
+#include <glad/glad.h>
 #include "Wismut/Events/KeyEvent.h"
 #include "Wismut/Events/MouseEvent.h"
 #include "Wismut/Events/WindowEvents.h"
-
-#include <glad/glad.h>
-
 #include "Wismut/Platform/OpenGL/OpenGLContext.h"
 
 namespace Wi
@@ -41,7 +35,7 @@ namespace Wi
 		glfwWindowHint(GLFW_SAMPLES, 16);
 		WI_CORE_ASSERT(m_Window, "Failed to create a window");
 
-		m_Context = std::make_unique<OpenGLContext>(m_Window);
+		m_Context = CreateScope<OpenGLContext>(m_Window);
 		m_Context->Init();
 
 		glfwSetWindowUserPointer(m_Window, &m_Data);

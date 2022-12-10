@@ -1,5 +1,5 @@
 #pragma once
-#include "glm/glm.hpp"
+#include <glm/glm.hpp>
 
 namespace Wi
 {
@@ -19,8 +19,8 @@ namespace Wi
 		virtual void SetIntArray(const std::string& name, int* value, uint32_t count) = 0;
 		virtual void SetMat4(const std::string& name, const glm::mat4& value) = 0;
 
-		static std::shared_ptr<Shader> Create(const std::string& filepath);
-		static std::shared_ptr<Shader> Create(const std::string& vertexSrc, const std::string& fragmentSource);
+		static Ref<Shader> Create(const std::string& filepath);
+		static Ref<Shader> Create(const std::string& vertexSrc, const std::string& fragmentSource);
 
 	protected:
 		std::string ReadFile(const std::string& filepath);

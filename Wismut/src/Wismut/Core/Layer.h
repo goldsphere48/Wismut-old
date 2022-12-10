@@ -1,8 +1,6 @@
 #pragma once
 
-#include "wipch.h"
-
-#include "Timestep.h"
+#include "Wismut/Core/Timestep.h"
 #include "Wismut/Events/Event.h"
 
 namespace Wi

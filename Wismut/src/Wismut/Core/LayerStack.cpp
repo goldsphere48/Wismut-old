@@ -1,5 +1,4 @@
 #include "wipch.h"
-
 #include "LayerStack.h"
 
 namespace Wi

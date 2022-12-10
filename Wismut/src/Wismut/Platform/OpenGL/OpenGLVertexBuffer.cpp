@@ -1,6 +1,6 @@
 #include "wipch.h"
 #include "OpenGLVertexBuffer.h"
-#include "glad/glad.h"
+#include <glad/glad.h>
 
 namespace Wi
 {

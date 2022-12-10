@@ -1,5 +1,4 @@
-#include <Wismut/Core/Application.h>
-#include <Wismut/Core/Log.h>
+#include "Wismut/Core/Application.h"
 
 int main()
 {

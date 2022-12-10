@@ -1,6 +1,6 @@
 #pragma once
-#include "KeyCodes.h"
-#include "MouseCodes.h"
+#include "Wismut/Core/KeyCodes.h"
+#include "Wismut/Core/MouseCodes.h"
 
 namespace Wi
 {
@@ -30,6 +30,6 @@ namespace Wi
 		virtual  std::pair<float, float> GetMousePositionImpl() = 0;
 
 	private:
-		static std::unique_ptr<Input> s_Instance;
+		static Scope<Input> s_Instance;
 	};
 }

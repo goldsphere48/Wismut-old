@@ -1,9 +1,7 @@
 #include "wipch.h"
-#include "OpenGLContext.h"
+#include "Wismut/Platform/OpenGL/OpenGLContext.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-
-#include "Wismut/Core/Assert.h"
 
 namespace Wi
 {
@@ -12,6 +10,9 @@ namespace Wi
 	{
 		if (severity == GL_DEBUG_SEVERITY_HIGH)
 			WI_CORE_ERROR("OpenGL Error: Type: {0}, severity: {1}, message: {2}", type, severity, message);
+
+		if (severity == GL_DEBUG_SEVERITY_MEDIUM || severity == GL_DEBUG_SEVERITY_LOW)
+			WI_CORE_WARN("OpenGL Warning: Type: {0}, severity: {1}, message: {2}", type, severity, message);
 	}
 
 	OpenGLContext::OpenGLContext(GLFWwindow* window)

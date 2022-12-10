@@ -1,12 +1,7 @@
 #include "wipch.h"
-#include "Application.h"
-#include <GLFW/glfw3.h>
-
-#include "Assert.h"
-#include "Core.h"
-#include "Timestep.h"
+#include "Wismut/Core/Application.h"
+#include "Wismut/Core/Timestep.h"
 #include "Wismut/Renderer/RenderCommand.h"
-
 #include "Wismut/Renderer/Renderer.h"
 #include "Wismut/Utils/Time.h"
 

@@ -1,6 +1,6 @@
 #include "wipch.h"
-#include "OpenGLVertexArray.h"
-#include "glad/glad.h"
+#include <glad/glad.h>
+#include "Wismut/Platform/OpenGL/OpenGLVertexArray.h"
 
 namespace Wi
 {
@@ -45,7 +45,7 @@ namespace Wi
 		glBindVertexArray(0);
 	}
 
-	void OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuffer>& buffer)
+	void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& buffer)
 	{
 		WI_CORE_ASSERT(buffer->GetLayout().GetElements().size(), "Vertex buffer has no layout!");
 
@@ -70,7 +70,7 @@ namespace Wi
 		m_VertexBuffers.push_back(buffer);
 	}
 
-	void OpenGLVertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer>& buffer)
+	void OpenGLVertexArray::SetIndexBuffer(const Ref<IndexBuffer>& buffer)
 	{
 		glBindVertexArray(m_RendererID);
 		buffer->Bind();

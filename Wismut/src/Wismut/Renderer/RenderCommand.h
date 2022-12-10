@@ -1,12 +1,12 @@
 #pragma once
-#include "RendererAPI.h"
+#include "Wismut/Renderer/RendererAPI.h"
 
 namespace Wi
 {
 	class RenderCommand
 	{
 	public:
-		static void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray)
+		static void DrawIndexed(const Ref<VertexArray>& vertexArray)
 		{
 			s_RendererAPI->DrawIndexed(vertexArray);
 		}
@@ -17,6 +17,6 @@ namespace Wi
 		}
 
 	private:
-		static std::unique_ptr<RendererAPI> s_RendererAPI;
+		static Scope<RendererAPI> s_RendererAPI;
 	};
 }

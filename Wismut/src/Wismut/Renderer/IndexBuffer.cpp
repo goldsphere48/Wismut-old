@@ -1,13 +1,11 @@
 #include "wipch.h"
-#include "IndexBuffer.h"
-
-#include "Renderer.h"
-#include "Wismut/Core/Assert.h"
+#include "Wismut/Renderer/IndexBuffer.h"
+#include "Wismut/Renderer/Renderer.h"
 #include "Wismut/Platform/OpenGL/OpenGLIndexBuffer.h"
 
 namespace Wi
 {
-	std::shared_ptr<IndexBuffer> IndexBuffer::Create(uint32_t* indices, uint32_t count)
+	Ref<IndexBuffer> IndexBuffer::Create(uint32_t* indices, uint32_t count)
 	{
 		switch (RendererAPI::GetAPI())
 		{
@@ -15,7 +13,7 @@ namespace Wi
 				WI_CORE_ASSERT(false, "Unspecified render API");
 				return nullptr;
 			case RendererAPI::API::OpenGL:
-				return std::make_shared<OpenGLIndexBuffer>(indices, count);
+				return CreateRef<OpenGLIndexBuffer>(indices, count);
 		}
 
 		WI_CORE_ASSERT(false, "Unknown render API");

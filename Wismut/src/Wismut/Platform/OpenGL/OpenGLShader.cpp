@@ -1,8 +1,6 @@
 #include "wipch.h"
-#include "OpenGLShader.h"
-
-#include "glm/gtc/type_ptr.hpp"
-#include "Wismut/Core/Assert.h"
+#include "Wismut/Platform/OpenGL/OpenGLShader.h"
+#include <glm/gtc/type_ptr.hpp>
 
 namespace Wi
 {

@@ -1,9 +1,5 @@
 #pragma once
-
 #include "wipch.h"
-
-#include <functional>
-
 #include "Wismut/Events/Event.h"
 #include "Wismut/Renderer/RenderContext.h"
 
@@ -35,9 +31,9 @@ namespace Wi
 
 		virtual void* GetNativeWindow() const = 0;
 
-		static std::unique_ptr<Window> Create(const WindowProps& props = WindowProps());
+		static Scope<Window> Create(const WindowProps& props = WindowProps());
 
 	protected:
-		std::unique_ptr<RenderContext> m_Context;
+		Scope<RenderContext> m_Context;
 	};
 }

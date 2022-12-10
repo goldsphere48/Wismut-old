@@ -1,11 +1,6 @@
 #include "wipch.h"
-#include "OrthographicCameraController.h"
-
-#include "Wismut/Core/Core.h"
+#include "Wismut/Renderer/OrthographicCameraController.h"
 #include "Wismut/Core/Input.h"
-#include <cmath>
-
-#include "Wismut/Core/Log.h"
 #include "Wismut/Utils/Time.h"
 
 namespace Wi

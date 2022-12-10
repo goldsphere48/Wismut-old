@@ -1,5 +1,4 @@
 #pragma once
-#include "Wismut/Core/Assert.h"
 
 namespace Wi
 {

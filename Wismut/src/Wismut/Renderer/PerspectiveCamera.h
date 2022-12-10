@@ -1,6 +1,6 @@
 #pragma once
-#include "glm/glm.hpp"
-#include "glm/detail/type_quat.hpp"
+#include <glm/glm.hpp>
+#include <glm/detail/type_quat.hpp>
 
 namespace Wi
 {

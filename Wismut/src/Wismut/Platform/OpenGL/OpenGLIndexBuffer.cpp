@@ -1,6 +1,6 @@
 #include "wipch.h"
-#include "OpenGLIndexBuffer.h"
-#include "glad/glad.h"
+#include "Wismut/Platform/OpenGL/OpenGLIndexBuffer.h"
+#include <glad/glad.h>
 
 namespace Wi
 {

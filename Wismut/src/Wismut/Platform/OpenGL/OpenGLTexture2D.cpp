@@ -1,10 +1,7 @@
 #include "wipch.h"
-#include "OpenGLTexture2D.h"
-
+#include "Wismut/Platform/OpenGL/OpenGLTexture2D.h"
 #include <stb_image.h>
 #include <glad/glad.h>
-
-#include "Wismut/Core/Assert.h"
 
 namespace Wi
 {

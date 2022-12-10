@@ -1,13 +1,11 @@
 #include "wipch.h"
-#include "VertexBuffer.h"
-
-#include "Renderer.h"
-#include "Wismut/Core/Assert.h"
+#include "Wismut/Renderer/VertexBuffer.h"
+#include "Wismut/Renderer/Renderer.h"
 #include "Wismut/Platform/OpenGL/OpenGLVertexBuffer.h"
 
 namespace Wi
 {
-	std::shared_ptr<VertexBuffer> VertexBuffer::Create(float* vertices, uint32_t size)
+	Ref<VertexBuffer> VertexBuffer::Create(float* vertices, uint32_t size)
 	{
 		switch (RendererAPI::GetAPI())
 		{
@@ -15,7 +13,7 @@ namespace Wi
 				WI_CORE_ASSERT(false, "Unspecified render API");
 				return nullptr;
 			case RendererAPI::API::OpenGL:
-				return std::make_shared<OpenGLVertexBuffer>(vertices, size);
+				return CreateRef<OpenGLVertexBuffer>(vertices, size);
 		}
 
 		WI_CORE_ASSERT(false, "Unknown render API");
@@ -23,7 +21,7 @@ namespace Wi
 
 	}
 
-	std::shared_ptr<VertexBuffer> VertexBuffer::Create(uint32_t size)
+	Ref<VertexBuffer> VertexBuffer::Create(uint32_t size)
 	{
 		switch (RendererAPI::GetAPI())
 		{
@@ -31,7 +29,7 @@ namespace Wi
 				WI_CORE_ASSERT(false, "Unspecified render API");
 				return nullptr;
 			case RendererAPI::API::OpenGL:
-				return std::make_shared<OpenGLVertexBuffer>(size);
+				return CreateRef<OpenGLVertexBuffer>(size);
 		}
 
 		WI_CORE_ASSERT(false, "Unknown render API");

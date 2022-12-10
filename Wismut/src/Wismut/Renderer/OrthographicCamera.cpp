@@ -1,8 +1,7 @@
 #include "wipch.h"
-#include "OrthographicCamera.h"
-
-#include "glm/ext/matrix_clip_space.hpp"
-#include "glm/gtx/transform.hpp"
+#include "Wismut/Renderer/OrthographicCamera.h"
+#include <glm/ext/matrix_clip_space.hpp>
+#include <glm/gtx/transform.hpp>
 
 namespace Wi
 {

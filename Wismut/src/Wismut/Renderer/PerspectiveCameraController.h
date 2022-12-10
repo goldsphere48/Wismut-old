@@ -1,5 +1,5 @@
 #pragma once
-#include "PerspectiveCamera.h"
+#include "Wismut/Renderer/PerspectiveCamera.h"
 #include "Wismut/Core/Timestep.h"
 #include "Wismut/Events/Event.h"
 #include "Wismut/Events/MouseEvent.h"

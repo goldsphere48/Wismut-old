@@ -1,9 +1,6 @@
 #include "wipch.h"
-#include "PerspectiveCameraController.h"
-
-#include "Wismut/Core/Core.h"
+#include "Wismut/Renderer/PerspectiveCameraController.h"
 #include "Wismut/Core/Input.h"
-#include "Wismut/Core/Log.h"
 #include "Wismut/Events/KeyEvent.h"
 
 namespace Wi

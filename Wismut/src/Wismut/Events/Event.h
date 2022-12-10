@@ -1,8 +1,5 @@
 #pragma once
-
 #include "wipch.h"
-
-#include <functional>
 
 namespace Wi
 {

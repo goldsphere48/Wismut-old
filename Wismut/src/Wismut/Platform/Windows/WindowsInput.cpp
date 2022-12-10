@@ -1,9 +1,9 @@
 #include "wipch.h"
-#include "WindowsInput.h"
-#include "GLFW/glfw3.h"
+#include "Wismut/Platform/Windows/WindowsInput.h"
+#include <GLFW/glfw3.h>
 #include "Wismut/Core/Application.h"
 
-std::unique_ptr<Wi::Input> Wi::Input::s_Instance = std::make_unique<WindowsInput>();
+Wi::Scope<Wi::Input> Wi::Input::s_Instance = CreateScope<WindowsInput>();
 
 bool Wi::WindowsInput::IsKeyPressedImpl(int key)
 {

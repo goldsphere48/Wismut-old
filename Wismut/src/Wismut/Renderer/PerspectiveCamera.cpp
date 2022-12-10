@@ -1,13 +1,12 @@
 #include "wipch.h"
-#include "PerspectiveCamera.h"
-
-#include "glm/gtx/quaternion.hpp"
+#include "Wismut/Renderer/PerspectiveCamera.h"
+#include <glm/gtx/quaternion.hpp>
 
 namespace Wi
 {
-	PerspectiveCamera::PerspectiveCamera(float aspectRatio, float fov, float near, float far)
+	PerspectiveCamera::PerspectiveCamera(float aspectRatio, float fov, float zNear, float zFar)
 	{
-		m_ProjectionMatrix = glm::perspective(fov, aspectRatio, near, far);
+		m_ProjectionMatrix = glm::perspective(fov, aspectRatio, zNear, zFar);
 		UpdateView();
 	}
 
@@ -46,9 +45,9 @@ namespace Wi
 		return glm::rotate(GetOrientation(), glm::vec3(1, 0, 0));
 	}
 
-	void PerspectiveCamera::SetProjection(float aspectRatio, float fov, float near, float far)
+	void PerspectiveCamera::SetProjection(float aspectRatio, float fov, float zNear, float zFar)
 	{
-		m_ProjectionMatrix = glm::perspective(fov, aspectRatio, near, far);
+		m_ProjectionMatrix = glm::perspective(fov, aspectRatio, zNear, zFar);
 	}
 
 	void PerspectiveCamera::SetPosition(glm::vec3 position)
