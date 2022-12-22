@@ -16,6 +16,7 @@
 #include <Wismut/Renderer/VertexBuffer.h>
 #include <Wismut/Renderer/RenderCommand.h>
 #include <Wismut/Renderer/RenderContext.h>
+#include <Wismut/Renderer/Renderer2D.h>
 #include <Wismut/Renderer/Renderer.h>
 #include <Wismut/Renderer/RendererAPI.h>
 #include <Wismut/Renderer/Texture.h>

@@ -21,6 +21,11 @@ namespace Wi
 			s_RendererAPI->Init();
 		}
 
+		static void SetViewport(int width, int height)
+		{
+			s_RendererAPI->SetViewport(width, height);
+		}
+
 	private:
 		static Scope<RendererAPI> s_RendererAPI;
 	};

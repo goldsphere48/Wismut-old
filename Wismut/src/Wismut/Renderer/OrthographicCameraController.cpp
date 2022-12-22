@@ -8,7 +8,7 @@ namespace Wi
 	OrthographicCameraController::OrthographicCameraController(float aspectRatio)
 		: m_ZoomLevel(1),
 		  m_AspectRatio(aspectRatio),
-		  m_Camera(-m_AspectRatio * m_ZoomLevel, m_AspectRatio* m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel)
+		  m_Camera(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel)
 	{
 
 	}
@@ -41,6 +41,7 @@ namespace Wi
 		dispatcher.Dispatch<MouseButtonReleasedEvent>(WI_BIND_EVENT_FN(OrthographicCameraController::OnMouseButtonReleased));
 		dispatcher.Dispatch<MouseScrolledEvent>(WI_BIND_EVENT_FN(OrthographicCameraController::OnMouseScrolled));
 		dispatcher.Dispatch<MouseMovedEvent>(WI_BIND_EVENT_FN(OrthographicCameraController::OnMouseMoved));
+		dispatcher.Dispatch<WindowResizeEvent>(WI_BIND_EVENT_FN(OrthographicCameraController::OnWindowResize));
 	}
 
 	bool OrthographicCameraController::OnMouseButtonPressed(MouseButtonPressedEvent& event)
@@ -71,9 +72,17 @@ namespace Wi
 			glm::vec2 mouse = glm::vec2(Input::GetMouseX(), Input::GetMouseY());
 			glm::vec2 delta = mouse - m_InitialMousePosition;
 			m_InitialMousePosition = mouse;
-			m_CameraPosition -= m_Camera.GetOrientation() * glm::vec3(delta.x, -delta.y, 0.0f) * m_DragSpeed;
+			m_CameraPosition -= m_Camera.GetOrientation() * glm::vec3(delta.x, -delta.y, 0.0f) * m_DragSpeed * m_ZoomLevel;
 			return true;
 		}
+
+		return false;
+	}
+
+	bool OrthographicCameraController::OnWindowResize(WindowResizeEvent& event)
+	{
+		m_AspectRatio = static_cast<float>(event.GetWidth()) / static_cast<float>(event.GetHeight());
+		m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
 
 		return false;
 	}

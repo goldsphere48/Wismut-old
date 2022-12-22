@@ -12,6 +12,7 @@ namespace Wi
 	{
 	public:
 		static void Init();
+		static void OnWindowResize(int width, int height);
 		static void BeginScene(const OrthographicCamera& camera);
 		static void BeginScene(const PerspectiveCamera& camera);
 		static void EndScene();

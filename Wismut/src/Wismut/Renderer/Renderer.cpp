@@ -1,5 +1,6 @@
 #include "wipch.h"
 #include "Wismut/Renderer/Renderer.h"
+#include "Wismut/Renderer/Renderer2D.h"
 
 namespace Wi
 {
@@ -9,6 +10,12 @@ namespace Wi
 	void Renderer::Init()
 	{
 		RenderCommand::Init();
+		Renderer2D::Init();
+	}
+
+	void Renderer::OnWindowResize(int width, int height)
+	{
+		RenderCommand::SetViewport(width, height);
 	}
 
 	void Renderer::BeginScene(const OrthographicCamera& camera)

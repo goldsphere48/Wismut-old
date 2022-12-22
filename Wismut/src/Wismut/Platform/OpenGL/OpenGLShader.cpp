@@ -18,6 +18,36 @@ namespace Wi
 
 			return 0;
 		}
+
+		std::string_view ConvertGLTypeToString(GLint type)
+		{
+			switch (type) {
+			case GL_FLOAT:
+				return "float";
+			case GL_FLOAT_VEC2:
+				return "float vec2";
+			case GL_FLOAT_VEC3:
+				return "float vec3";
+			case GL_FLOAT_VEC4:
+				return "float vec4";
+			case GL_DOUBLE:
+				return "double";
+			case GL_INT:
+				return "int";
+			case GL_UNSIGNED_INT:
+				return "unsigned int";
+			case GL_BOOL:
+				return "bool";
+			case GL_FLOAT_MAT2:
+				return "float mat2";
+			case GL_FLOAT_MAT3:
+				return "float mat3";
+			case GL_FLOAT_MAT4:
+				return "float mat4";
+			default:
+				return "?";
+			}
+		}
 	}
 
 	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSource, const std::string& fragmentSource)
@@ -87,6 +117,52 @@ namespace Wi
 		glUniformMatrix4fv(GetLocation(name), 1, GL_FALSE, glm::value_ptr(value));
 	}
 
+	void OpenGLShader::PrintActiveUniforms()
+	{
+		GLint numUniforms;
+		glGetProgramInterfaceiv(m_RenderID, GL_UNIFORM, GL_ACTIVE_RESOURCES, &numUniforms);
+
+		GLenum properties[] = {GL_NAME_LENGTH, GL_TYPE, GL_LOCATION, GL_BLOCK_INDEX};
+		WI_CORE_INFO("Active uniforms:");
+
+		for (int i = 0; i < numUniforms; ++i)
+		{
+			GLint results[4];
+			glGetProgramResourceiv(m_RenderID, GL_UNIFORM, i, 4, properties, 4, nullptr, results);
+
+			GLint nameBufferSize = results[0] + 1;
+			char* name = new char[nameBufferSize];
+			glGetProgramResourceName(m_RenderID, GL_UNIFORM, i, nameBufferSize, nullptr, name);
+
+			WI_CORE_INFO("Name: {0}, Type: {1}, Location: {2}, Block index: {3}", name, Utils::ConvertGLTypeToString(results[1]), results[2], results[3]);
+
+			delete[] name;
+		}
+	}
+
+	void OpenGLShader::PrintActiveAttributes()
+	{
+		GLint numAttributes;
+		glGetProgramInterfaceiv(m_RenderID, GL_PROGRAM_INPUT, GL_ACTIVE_RESOURCES, &numAttributes);
+
+		GLenum properties[] = { GL_NAME_LENGTH, GL_TYPE, GL_LOCATION };
+		WI_CORE_INFO("Active attributes:");
+
+		for (int i = 0; i < numAttributes; ++i)
+		{
+			GLint results[3];
+			glGetProgramResourceiv(m_RenderID, GL_PROGRAM_INPUT, i, 3, properties, 3, nullptr, results);
+
+			GLint nameBufferSize = results[0] + 1;
+			char* name = new char[nameBufferSize];
+			glGetProgramResourceName(m_RenderID, GL_PROGRAM_INPUT, i, nameBufferSize, nullptr, name);
+
+			WI_CORE_INFO("Name: {0}, Type: {1}, Location: {2}", name, Utils::ConvertGLTypeToString(results[1]), results[2]);
+
+			delete[] name;
+		}
+	}
+
 	uint32_t OpenGLShader::GetLocation(const std::string name)
 	{
 		if (m_CachedLocations.find(name) == m_CachedLocations.end())
@@ -146,13 +222,13 @@ namespace Wi
 				glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
 				char* message = new char[length];
 				glGetShaderInfoLog(id, length, &length, message);
-				WI_CORE_ERROR("Failed to complile shader: {0}", type);
+				WI_CORE_ERROR("Failed to complile shader: {0}", type == GL_VERTEX_SHADER ? "vertex" : "fragment");
 				WI_CORE_ERROR(message);
 
 				glDeleteShader(id);
 				glDeleteProgram(program);
 
-				WI_CORE_ASSERT(false, "Failed to compile shader");
+				WI_CORE_ASSERT(false, "Failed to complile shader: {0}", type == GL_VERTEX_SHADER ? "vertex" : "fragment");
 
 				delete[] message;
 			}

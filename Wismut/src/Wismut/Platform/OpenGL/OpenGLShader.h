@@ -23,6 +23,9 @@ namespace Wi
 		void SetIntArray(const std::string& name, int* value, uint32_t count) override;
 		void SetMat4(const std::string& name, const glm::mat4& value) override;
 
+		void PrintActiveUniforms() override;
+		void PrintActiveAttributes() override;
+
 		const std::string& GetName() const override { return m_Name; }
 
 	private:

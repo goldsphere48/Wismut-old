@@ -22,6 +22,9 @@ namespace Wi
 
 		EVENT_TYPE(WindowResize);
 
+		[[nodiscard]] int GetWidth() const { return m_Width; }
+		[[nodiscard]] int GetHeight() const { return m_Height; }
+
 		std::string ToString() const override
 		{
 			std::stringstream ss;

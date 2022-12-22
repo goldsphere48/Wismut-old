@@ -18,10 +18,11 @@ namespace Wi
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* layer);
 		static Application& Get() { return *s_Instance; }
-		Window& GetWindow() const { return *m_Window; }
+		[[nodiscard]] Window& GetWindow() const { return *m_Window; }
 
 	private:
 		bool OnWindowClose(WindowCloseEvent& event);
+		bool OnWindowResize(WindowResizeEvent& event);
 
 	private:
 		LayerStack m_LayerStack;
@@ -30,6 +31,7 @@ namespace Wi
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running;
 		float m_LastFrameTime = 0.0f;
+		bool m_Minimized = false;
 	};
 
 	Application* CreateApplication();

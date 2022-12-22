@@ -12,6 +12,9 @@ namespace Wi
 
 		if (severity == GL_DEBUG_SEVERITY_MEDIUM || severity == GL_DEBUG_SEVERITY_LOW)
 			WI_CORE_WARN("OpenGL Warning: Type: {0}, severity: {1}, message: {2}", type, severity, message);
+
+		if (type == GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR)
+			WI_CORE_WARN("OpenGL Warning: DEPRECATED BEHAVIOUR Type: {0}, severity: {1}, message: {2}", type, severity, message);
 	}
 
 	void OpenGLRendererAPI::Init()
@@ -33,5 +36,10 @@ namespace Wi
 	{
 		vertexArray->Bind();
 		glDrawElements(GL_TRIANGLES, vertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+	}
+
+	void OpenGLRendererAPI::SetViewport(int width, int height)
+	{
+		glViewport(0, 0, width, height);
 	}
 }

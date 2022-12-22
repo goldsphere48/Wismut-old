@@ -51,6 +51,8 @@ namespace Wi
 		{
 			WindowData* data = static_cast<WindowData*>(glfwGetWindowUserPointer(window));
 			WindowResizeEvent e(width, height);
+			data->Width = width;
+			data->Height = height;
 			data->EventCallback(e);
 		});
 

@@ -2,6 +2,7 @@
 #include "Wismut/Renderer/OrthographicCamera.h"
 #include "Wismut/Core/Timestep.h"
 #include "Wismut/Events/MouseEvent.h"
+#include "Wismut/Events/WindowEvents.h"
 
 namespace Wi
 {
@@ -20,6 +21,7 @@ namespace Wi
 		bool OnMouseButtonReleased(MouseButtonReleasedEvent& event);
 		bool OnMouseScrolled(MouseScrolledEvent& event);
 		bool OnMouseMoved(MouseMovedEvent& event);
+		bool OnWindowResize(WindowResizeEvent& event);
 
 	private:
 		float m_ZoomLevel;

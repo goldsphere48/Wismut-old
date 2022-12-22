@@ -19,4 +19,19 @@ namespace Wi
 		WI_CORE_ASSERT(false, "Unknown render API");
 		return nullptr;
 	}
+
+	Ref<Texture2D> Texture2D::Create(int width, int height, const void* data)
+	{
+		switch (RendererAPI::GetAPI())
+		{
+		case RendererAPI::API::None:
+			WI_CORE_ASSERT(false, "Unspecified render API");
+			return nullptr;
+		case RendererAPI::API::OpenGL:
+			return CreateRef<OpenGLTexture2D>(width, height, data);
+		}
+
+		WI_CORE_ASSERT(false, "Unknown render API");
+		return nullptr;
+	}
 }

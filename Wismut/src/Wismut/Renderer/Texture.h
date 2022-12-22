@@ -17,5 +17,6 @@ namespace Wi
 	{
 	public:
 		static Ref<Texture2D> Create(const std::string& filepath);
+		static Ref<Texture2D> Create(int width, int height, const void* data);
 	};
 }

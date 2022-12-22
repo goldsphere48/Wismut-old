@@ -7,6 +7,7 @@ namespace Wi
 	{
 	public:
 		OpenGLTexture2D(const std::string& filepath);
+		OpenGLTexture2D(int width, int height, const void* data);
 		~OpenGLTexture2D() override;
 
 		uint32_t GetWidth() override;
