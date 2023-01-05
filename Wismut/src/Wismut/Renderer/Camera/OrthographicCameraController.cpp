@@ -1,7 +1,6 @@
 #include "wipch.h"
-#include "Wismut/Renderer/OrthographicCameraController.h"
+#include "Wismut/Renderer/Camera/OrthographicCameraController.h"
 #include "Wismut/Core/Input.h"
-#include "Wismut/Utils/Time.h"
 
 namespace Wi
 {
@@ -37,11 +36,11 @@ namespace Wi
 	void OrthographicCameraController::OnEvent(Event& event)
 	{
 		EventDispatcher dispatcher(event);
-		dispatcher.Dispatch<MouseButtonPressedEvent>(WI_BIND_EVENT_FN(OrthographicCameraController::OnMouseButtonPressed));
-		dispatcher.Dispatch<MouseButtonReleasedEvent>(WI_BIND_EVENT_FN(OrthographicCameraController::OnMouseButtonReleased));
-		dispatcher.Dispatch<MouseScrolledEvent>(WI_BIND_EVENT_FN(OrthographicCameraController::OnMouseScrolled));
-		dispatcher.Dispatch<MouseMovedEvent>(WI_BIND_EVENT_FN(OrthographicCameraController::OnMouseMoved));
-		dispatcher.Dispatch<WindowResizeEvent>(WI_BIND_EVENT_FN(OrthographicCameraController::OnWindowResize));
+		dispatcher.Dispatch<MouseButtonPressedEvent>([this](MouseButtonPressedEvent& e) { return OnMouseButtonPressed(e); });
+		dispatcher.Dispatch<MouseButtonReleasedEvent>([this](MouseButtonReleasedEvent& e) { return OnMouseButtonReleased(e); });
+		dispatcher.Dispatch<MouseScrolledEvent>([this](MouseScrolledEvent& e) { return OnMouseScrolled(e); });
+		dispatcher.Dispatch<MouseMovedEvent>([this](MouseMovedEvent& e) { return OnMouseMoved(e); });
+		dispatcher.Dispatch<WindowResizeEvent>([this](WindowResizeEvent& e) { return OnWindowResize(e); });
 	}
 
 	bool OrthographicCameraController::OnMouseButtonPressed(MouseButtonPressedEvent& event)

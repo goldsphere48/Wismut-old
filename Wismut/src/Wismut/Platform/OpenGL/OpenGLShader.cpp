@@ -165,7 +165,7 @@ namespace Wi
 
 	uint32_t OpenGLShader::GetLocation(const std::string name)
 	{
-		if (m_CachedLocations.find(name) == m_CachedLocations.end())
+		if (!m_CachedLocations.contains(name))
 			m_CachedLocations[name] = glGetUniformLocation(m_RenderID, name.c_str());
 
 		return m_CachedLocations[name];
@@ -175,18 +175,18 @@ namespace Wi
 	{
 		std::unordered_map<GLenum, std::string> shaderSources;
 
-		std::string typeToken = "#type";
-		size_t typeTokenLength = typeToken.size();
+		constexpr std::string_view typeToken = "#type";
+		constexpr size_t typeTokenLength = typeToken.size();
 		size_t pos = source.find(typeToken, 0);
 		while (pos != std::string::npos)
 		{
-			size_t eol = source.find_first_of("\r\n", pos);
+			const size_t eol = source.find_first_of("\r\n", pos);
 			WI_CORE_ASSERT(eol != std::string::npos, "Syntax error");
-			size_t begin = pos + typeTokenLength + 1;
+			const size_t begin = pos + typeTokenLength + 1;
 			std::string type = source.substr(begin, eol - begin);
 			WI_CORE_ASSERT(Utils::ShaderTypeFromString(type), "Invalid shader type");
 
-			size_t nextLinePos = source.find_first_not_of("\r\n", eol);
+			const size_t nextLinePos = source.find_first_not_of("\r\n", eol);
 			WI_CORE_ASSERT(nextLinePos != std::string::npos, "Syntax error");
 			pos = source.find(typeToken, nextLinePos);
 
@@ -203,7 +203,7 @@ namespace Wi
 	{
 		const uint32_t program = glCreateProgram();
 		WI_CORE_ASSERT(sources.size() <= 2, "Unsupported count of shader types");
-		std::array<uint32_t, 2> shaderIDs;
+		std::array<uint32_t, 2> shaderIDs {};
 
 		int shaderIndex = 0;
 		for (auto [type, source] : sources)

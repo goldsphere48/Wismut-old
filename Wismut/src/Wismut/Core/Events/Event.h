@@ -27,6 +27,7 @@ namespace Wi
 	class Event
 	{
 	public:
+		virtual ~Event() = default;
 		virtual const char* GetName() const = 0;
 		virtual EventType GetType() const = 0;
 		virtual std::string ToString() const { return GetName(); }
@@ -39,8 +40,16 @@ namespace Wi
 		return stream;
 	}
 
+	template<typename T>
+	concept EventClassType = requires
+	{
+		{ std::is_base_of<Event, T>() };
+	};
+
 	class EventDispatcher
 	{
+		template<EventClassType T>
+		using EventHandleFn = std::function<bool(T&)>;
 	public:
 		EventDispatcher(Event& event)
 			: m_Event(event)
@@ -48,8 +57,8 @@ namespace Wi
 			
 		}
 
-		template<typename T>
-		void Dispatch(const std::function<bool(T)>& handler)
+		template<EventClassType T>
+		void Dispatch(const EventHandleFn<T>& handler)
 		{
 			if (m_Event.GetType() == T::GetStaticType())
 			{

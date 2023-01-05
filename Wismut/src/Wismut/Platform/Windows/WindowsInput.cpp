@@ -5,28 +5,28 @@
 
 Wi::Scope<Wi::Input> Wi::Input::s_Instance = CreateScope<WindowsInput>();
 
-bool Wi::WindowsInput::IsKeyPressedImpl(int key)
+bool Wi::WindowsInput::IsKeyPressedImpl(KeyCode key)
 {
 	const auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 	const auto state = glfwGetKey(window, key);
 	return state == GLFW_PRESS || state == GLFW_REPEAT;
 }
 
-bool Wi::WindowsInput::IsKeyReleasedImpl(int key)
+bool Wi::WindowsInput::IsKeyReleasedImpl(KeyCode key)
 {
 	const auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 	const auto state = glfwGetKey(window, key);
 	return state == GLFW_RELEASE;
 }
 
-bool Wi::WindowsInput::IsMouseButtonPressedImpl(int button)
+bool Wi::WindowsInput::IsMouseButtonPressedImpl(MouseCode button)
 {
 	const auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 	const auto state = glfwGetMouseButton(window, button);
 	return state == GLFW_PRESS;
 }
 
-bool Wi::WindowsInput::IsMouseButtonReleasedImpl(int button)
+bool Wi::WindowsInput::IsMouseButtonReleasedImpl(MouseCode button)
 {
 	const auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 	const auto state = glfwGetMouseButton(window, button);

@@ -29,7 +29,7 @@ namespace Wi
 
 	void LayerStack::PopLayer(Layer* layer)
 	{
-		const auto it = std::find(m_LayerStack.begin(), m_LayerStack.end(), layer);
+		const auto it = std::ranges::find(m_LayerStack, layer);
 		if (it != m_LayerStack.end())
 		{
 			m_LayerStack.erase(it);
@@ -40,7 +40,7 @@ namespace Wi
 
 	void LayerStack::PopOverlay(Layer* layer)
 	{
-		const auto it = std::find(m_LayerStack.begin(), m_LayerStack.end(), layer);
+		const auto it = std::ranges::find(m_LayerStack, layer);
 		if (it != m_LayerStack.end()) {
 			m_LayerStack.erase(it);
 			layer->OnDetach();

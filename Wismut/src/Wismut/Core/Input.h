@@ -19,11 +19,11 @@ namespace Wi
 		static std::pair<float, float> GetMousePosition() { return s_Instance->GetMousePositionImpl(); }
 
 	protected:
-		virtual bool IsKeyPressedImpl(int key) = 0;
-		virtual bool IsKeyReleasedImpl(int key) = 0;
+		virtual bool IsKeyPressedImpl(KeyCode key) = 0;
+		virtual bool IsKeyReleasedImpl(KeyCode key) = 0;
 
-		virtual bool IsMouseButtonPressedImpl(int button) = 0;
-		virtual bool IsMouseButtonReleasedImpl(int button) = 0;
+		virtual bool IsMouseButtonPressedImpl(MouseCode button) = 0;
+		virtual bool IsMouseButtonReleasedImpl(MouseCode button) = 0;
 
 		virtual float GetMouseXImpl() = 0;
 		virtual float GetMouseYImpl() = 0;

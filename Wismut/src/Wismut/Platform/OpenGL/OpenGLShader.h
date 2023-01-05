@@ -30,7 +30,7 @@ namespace Wi
 
 	private:
 		uint32_t GetLocation(const std::string name);
-		std::unordered_map<GLenum, std::string> SplitShader(const std::string& source);
+		static std::unordered_map<GLenum, std::string> SplitShader(const std::string& source);
 		void CreateProgram(std::unordered_map<GLenum, std::string>&& sources);
 
 	private:

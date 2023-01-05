@@ -1,9 +1,9 @@
 #include "wipch.h"
 #include "Wismut/Platform/Windows/WindowsWindow.h"
 #include <glad/glad.h>
-#include "Wismut/Events/KeyEvent.h"
-#include "Wismut/Events/MouseEvent.h"
-#include "Wismut/Events/WindowEvents.h"
+#include "Wismut/Core/Events/KeyEvent.h"
+#include "Wismut/Core/Events/MouseEvent.h"
+#include "Wismut/Core/Events/WindowEvents.h"
 #include "Wismut/Platform/OpenGL/OpenGLContext.h"
 
 namespace Wi
@@ -136,14 +136,18 @@ namespace Wi
 		glfwSwapInterval(value);
 	}
 
-	void WindowsWindow::OnUpdate()
+	void WindowsWindow::PollEvents()
 	{
-		m_Context->SwapBuffers();
 		glfwPollEvents();
 	}
 
 	void WindowsWindow::SetEventCallback(std::function<void(Event&)> callback)
 	{
 		m_Data.EventCallback = callback;
+	}
+
+	void WindowsWindow::SwapBuffers()
+	{
+		glfwSwapBuffers(m_Window);
 	}
 }

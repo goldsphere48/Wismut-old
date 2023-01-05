@@ -1,14 +1,14 @@
 #pragma once
 
 #include "Wismut/Core/Timestep.h"
-#include "Wismut/Events/Event.h"
+#include "Wismut/Core/Events/Event.h"
 
 namespace Wi
 {
 	class Layer
 	{
 	public:
-		Layer(std::string name = "Layer")
+		Layer(std::string_view name = "Layer")
 			: m_DebugName(std::move(name)) {}
 		virtual ~Layer() = default;
 

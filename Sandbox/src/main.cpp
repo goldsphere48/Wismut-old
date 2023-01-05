@@ -2,10 +2,6 @@
 
 #include "glm/gtc/quaternion.hpp"
 #include "ImGui/imgui.h"
-#include "Wismut/Events/KeyEvent.h"
-#include "Wismut/Renderer/PerspectiveCameraController.h"
-#include "Wismut/Renderer/Renderer.h"
-#include "Wismut/Renderer/VertexArray.h"
 
 class MyLayer : public Wi::Layer
 {
@@ -25,8 +21,9 @@ public:
 	void OnUpdate(Wi::Timestep ts) override
 	{
 		m_CameraPers->OnUpdate(ts);
-		Wi::Renderer::BeginScene(m_CameraPers->GetCamera());
-		Wi::Renderer::EndScene();
+		m_CameraOrth->OnUpdate(ts);
+		Wi::Renderer::BeginFrame(m_CameraOrth->GetCamera().GetProjectionMatrix());
+		Wi::Renderer::EndFrame();
 	}
 
 	void OnImGuiRender() override

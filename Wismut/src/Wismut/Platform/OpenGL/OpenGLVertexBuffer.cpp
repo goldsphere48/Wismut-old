@@ -39,12 +39,12 @@ namespace Wi
 		glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
 	}
 
-	void OpenGLVertexBuffer::SetLayout(const BufferLayout& layout)
+	void OpenGLVertexBuffer::SetLayout(const VertexBufferLayout& layout)
 	{
 		m_Layout = layout;
 	}
 
-	const BufferLayout& OpenGLVertexBuffer::GetLayout() const
+	const VertexBufferLayout& OpenGLVertexBuffer::GetLayout() const
 	{
 		return m_Layout;
 	}

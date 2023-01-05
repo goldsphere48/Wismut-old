@@ -4,24 +4,25 @@
 
 namespace Wi
 {
+	enum class RendererAPIType
+	{
+		None,
+		OpenGL	
+	};
+
 	class RendererAPI
 	{
 	public:
-		enum class API
-		{
-			None = 0,
-			OpenGL = 1
-		};
-	public:
+		virtual ~RendererAPI() = default;
 		virtual void Clear(glm::vec4 color) const = 0;
 		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray) const = 0;
 		virtual void Init() = 0;
 		virtual void SetViewport(int width, int height) = 0;
 
-		static API GetAPI() { return s_API; }
+		static RendererAPIType GetAPI() { return s_CurrentAPI; }
 		static Scope<RendererAPI> Create();
 
 	private:
-		static API s_API;
+		inline static RendererAPIType s_CurrentAPI = RendererAPIType::OpenGL;
 	};
 }

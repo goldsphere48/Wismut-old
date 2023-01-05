@@ -9,10 +9,10 @@ namespace Wi
 	{
 		switch (RendererAPI::GetAPI())
 		{
-		case RendererAPI::API::None:
+		case RendererAPIType::None:
 			WI_CORE_ASSERT(false, "Unspecified render API");
 			return nullptr;
-		case RendererAPI::API::OpenGL:
+		case RendererAPIType::OpenGL:
 			return CreateRef<OpenGLUniformBuffer>(size, binding);
 		}
 

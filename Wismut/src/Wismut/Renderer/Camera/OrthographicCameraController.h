@@ -1,8 +1,8 @@
 #pragma once
-#include "Wismut/Renderer/OrthographicCamera.h"
+#include "Wismut/Renderer/Camera/OrthographicCamera.h"
 #include "Wismut/Core/Timestep.h"
-#include "Wismut/Events/MouseEvent.h"
-#include "Wismut/Events/WindowEvents.h"
+#include "Wismut/Core/Events/MouseEvent.h"
+#include "Wismut/Core/Events/WindowEvents.h"
 
 namespace Wi
 {

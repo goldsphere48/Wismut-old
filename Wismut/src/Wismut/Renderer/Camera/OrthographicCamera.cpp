@@ -1,5 +1,5 @@
 #include "wipch.h"
-#include "Wismut/Renderer/OrthographicCamera.h"
+#include "Wismut/Renderer/Camera/OrthographicCamera.h"
 #include <glm/ext/matrix_clip_space.hpp>
 #include <glm/gtx/transform.hpp>
 #include "glm/gtx/quaternion.hpp"
@@ -41,7 +41,7 @@ namespace Wi
 		return m_ViewMatrix;
 	}
 
-	const glm::quat OrthographicCamera::GetOrientation() const
+	glm::quat OrthographicCamera::GetOrientation() const
 	{
 		return glm::quat(glm::vec3(0.0f, 0.0f, -m_Rotation));
 	}
@@ -53,7 +53,7 @@ namespace Wi
 
 	void OrthographicCamera::UpdateView()
 	{
-		glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_Position) * glm::toMat4(GetOrientation());
+		const glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_Position) * glm::toMat4(GetOrientation());
 		m_ViewMatrix = glm::inverse(transform);
 	}
 }

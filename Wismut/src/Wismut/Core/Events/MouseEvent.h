@@ -1,5 +1,5 @@
 #pragma once
-#include "Wismut/Events/Event.h"
+#include "Wismut/Core/Events/Event.h"
 #include "Wismut/Core/MouseCodes.h"
 
 namespace Wi

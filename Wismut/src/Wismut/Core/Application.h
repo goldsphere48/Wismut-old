@@ -1,7 +1,7 @@
 #pragma once
 #include "Wismut/Core/Window.h"
-#include "Wismut/Events/Event.h"
-#include "Wismut/Events/WindowEvents.h"
+#include "Wismut/Core/Events/Event.h"
+#include "Wismut/Core/Events/WindowEvents.h"
 #include "Wismut/Core/LayerStack.h"
 #include "Wismut/ImGui/ImGuiLayer.h"
 
@@ -18,11 +18,11 @@ namespace Wi
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* layer);
 		static Application& Get() { return *s_Instance; }
-		[[nodiscard]] Window& GetWindow() const { return *m_Window; }
+		Window& GetWindow() const { return *m_Window; }
 
 	private:
-		bool OnWindowClose(WindowCloseEvent& event);
-		bool OnWindowResize(WindowResizeEvent& event);
+		bool OnWindowClose(const WindowCloseEvent& event);
+		bool OnWindowResize(const WindowResizeEvent& event);
 
 	private:
 		LayerStack m_LayerStack;

@@ -1,5 +1,5 @@
 #include "wipch.h"
-#include "Wismut/Renderer/PerspectiveCamera.h"
+#include "Wismut/Renderer/Camera/PerspectiveCamera.h"
 #include <glm/gtx/quaternion.hpp>
 
 namespace Wi

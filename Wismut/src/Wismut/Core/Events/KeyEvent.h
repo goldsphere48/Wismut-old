@@ -1,5 +1,5 @@
 #pragma once
-#include "Wismut/Events/Event.h"
+#include "Wismut/Core/Events/Event.h"
 #include "Wismut/Core/KeyCodes.h"
 
 namespace Wi
@@ -13,7 +13,7 @@ namespace Wi
 			
 		}
 
-		KeyCode GetKey() { return Key; }
+		KeyCode GetKey() const { return Key; }
 
 	protected:
 		KeyCode Key;

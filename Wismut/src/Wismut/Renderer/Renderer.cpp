@@ -1,34 +1,28 @@
 #include "wipch.h"
 #include "Wismut/Renderer/Renderer.h"
-#include "Wismut/Renderer/Renderer2D.h"
 
 namespace Wi
 {
 	Renderer::SceneData Renderer::s_SceneData;
-	ShaderLibrary Renderer::m_ShaderLibrary;
+	ShaderLibrary Renderer::s_ShaderLibrary;
+	Scope<RendererAPI> Renderer::s_RendererAPI = nullptr;
 
 	void Renderer::Init()
 	{
-		RenderCommand::Init();
-		Renderer2D::Init();
+		s_RendererAPI = RendererAPI::Create();
 	}
 
 	void Renderer::OnWindowResize(int width, int height)
 	{
-		RenderCommand::SetViewport(width, height);
+		s_RendererAPI->SetViewport(width, height);
 	}
 
-	void Renderer::BeginScene(const OrthographicCamera& camera)
+	void Renderer::BeginFrame(const glm::mat4& camera)
 	{
-		s_SceneData.ViewProjectionMatrix = camera.GetViewProjectionMatrix();
+		s_SceneData.ViewProjectionMatrix = camera;
 	}
 
-	void Renderer::BeginScene(const PerspectiveCamera& camera)
-	{
-		s_SceneData.ViewProjectionMatrix = camera.GetViewProjectionMatrix();
-	}
-
-	void Renderer::EndScene()
+	void Renderer::EndFrame()
 	{
 	}
 
@@ -37,6 +31,11 @@ namespace Wi
 		shader->Bind();
 		shader->SetMat4("u_Transform", transform);
 		shader->SetMat4("u_ViewProjection", s_SceneData.ViewProjectionMatrix);
-		RenderCommand::DrawIndexed(vertexArray);
+		s_RendererAPI->DrawIndexed(vertexArray);
+	}
+
+	void Renderer::Clear(glm::vec4 clearColor)
+	{
+		s_RendererAPI->Clear(clearColor);
 	}
 }

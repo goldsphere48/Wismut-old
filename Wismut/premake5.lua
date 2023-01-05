@@ -1,6 +1,6 @@
 project "Wismut"
 	language "C++"
-	cppdialect "C++17"
+	cppdialect "C++20"
 	kind "StaticLib"
 	staticruntime "on"
 

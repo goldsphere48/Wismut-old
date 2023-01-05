@@ -4,16 +4,14 @@
 
 namespace Wi
 {
-	RendererAPI::API RendererAPI::s_API = API::OpenGL;
-
 	Scope<RendererAPI> RendererAPI::Create()
 	{
 		switch (GetAPI())
 		{
-			case API::None:
+			case RendererAPIType::None:
 				WI_CORE_ASSERT(false, "Unspecified render API");
 				return nullptr;
-			case API::OpenGL:
+			case RendererAPIType::OpenGL:
 				return CreateScope<OpenGLRendererAPI>();
 		}
 

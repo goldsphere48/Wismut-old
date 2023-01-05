@@ -32,4 +32,6 @@ namespace Wi
 	{
 		return std::make_unique<T>(std::forward<Args>(args)...);
 	}
+
+	using byte = uint8_t;
 }

@@ -1,12 +1,12 @@
 #include "wipch.h"
-#include "Wismut/Renderer/PerspectiveCameraController.h"
+#include "Wismut/Renderer/Camera/PerspectiveCameraController.h"
 #include "Wismut/Core/Input.h"
-#include "Wismut/Events/KeyEvent.h"
+#include "Wismut/Core/Events/KeyEvent.h"
 
 namespace Wi
 {
 	PerspectiveCameraController::PerspectiveCameraController(float aspectRatio, float zNear, float zFar)
-		: m_Camera(aspectRatio, glm::radians(45.0f), zNear, zFar), m_AspectRatio(aspectRatio)
+		: m_Camera(aspectRatio, glm::radians(45.0f), zNear, zFar)
 	{
 	}
 
@@ -24,7 +24,7 @@ namespace Wi
 		return m_Camera;
 	}
 
-	bool PerspectiveCameraController::OnMousePressed(MouseButtonPressedEvent& event)
+	bool PerspectiveCameraController::OnMousePressed(const MouseButtonPressedEvent& event)
 	{
 		if (event.GetMouseButton() == Key::ButtonRight)
 		{
@@ -45,7 +45,7 @@ namespace Wi
 		return false;
 	}
 
-	bool PerspectiveCameraController::OnMouseReleased(MouseButtonReleasedEvent& event)
+	bool PerspectiveCameraController::OnMouseReleased(const MouseButtonReleasedEvent& event)
 	{
 		if (event.GetMouseButton() == Key::ButtonRight)
 		{

@@ -19,8 +19,9 @@ namespace Wi
 		bool IsVSync() const override { return m_Data.IsVSync; }
 		void SetVSync(bool value) override;
 		void* GetNativeWindow() const override { return m_Window; }
-		void OnUpdate() override;
+		void PollEvents() override;
 		void SetEventCallback(std::function<void(Event&)> callback) override;
+		void SwapBuffers() override;
 
 	private:
 		struct WindowData

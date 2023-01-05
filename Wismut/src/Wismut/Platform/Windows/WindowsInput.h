@@ -6,10 +6,10 @@ namespace Wi
 	class WindowsInput : public Input
 	{
 	protected:
-		bool IsKeyPressedImpl(int key) override;
-		bool IsKeyReleasedImpl(int key) override;
-		bool IsMouseButtonPressedImpl(int button) override;
-		bool IsMouseButtonReleasedImpl(int button) override;
+		bool IsKeyPressedImpl(KeyCode key) override;
+		bool IsKeyReleasedImpl(KeyCode key) override;
+		bool IsMouseButtonPressedImpl(MouseCode button) override;
+		bool IsMouseButtonReleasedImpl(MouseCode button) override;
 		float GetMouseXImpl() override;
 		float GetMouseYImpl() override;
 		std::pair<float, float> GetMousePositionImpl() override;

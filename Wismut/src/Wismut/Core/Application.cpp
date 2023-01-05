@@ -1,7 +1,6 @@
 #include "wipch.h"
 #include "Wismut/Core/Application.h"
 #include "Wismut/Core/Timestep.h"
-#include "Wismut/Renderer/RenderCommand.h"
 #include "Wismut/Renderer/Renderer.h"
 #include "Wismut/Utils/Time.h"
 
@@ -30,11 +29,11 @@ namespace Wi
 	{
 		while (m_Running)
 		{
-			float time = Time::GetTime();
-			Timestep ts = time - m_LastFrameTime;
+			const float time = Time::GetTime();
+			const Timestep ts = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 
-			RenderCommand::Clear(glm::vec4(0.2f, 0.2f, 0.2f, 1.0f));
+			Renderer::Clear({ 0.8, 0.6, 0.6, 1.0 });
 
 			if (!m_Minimized)
 				for (Layer* layer : m_LayerStack)
@@ -45,24 +44,25 @@ namespace Wi
 				layer->OnImGuiRender();
 			m_ImGuiLayer->End();
 
-			m_Window->OnUpdate();
+			m_Window->SwapBuffers();
+			m_Window->PollEvents();
 		}
 	}
 
 	void Application::OnEvent(Event& event)
 	{
 		EventDispatcher dispatcher(event);
-		dispatcher.Dispatch<WindowCloseEvent>(WI_BIND_EVENT_FN(Application::OnWindowClose));
-		dispatcher.Dispatch<WindowResizeEvent>(WI_BIND_EVENT_FN(Application::OnWindowResize));
+		dispatcher.Dispatch<WindowCloseEvent>([this](WindowCloseEvent& e) { return OnWindowClose(e); });
+		dispatcher.Dispatch<WindowResizeEvent>([this](WindowResizeEvent& e) { return OnWindowResize(e); });
 
 		WI_CORE_TRACE("{0}", event);
 
-		for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); ++it)
+		for (const auto& it : std::ranges::reverse_view(m_LayerStack))
 		{
 			if (event.Handled)
 				break;
 
-			(*it)->OnEvent(event);
+			it->OnEvent(event);
 		}
 	}
 
@@ -76,13 +76,13 @@ namespace Wi
 		m_LayerStack.PushOverlay(layer);
 	}
 
-	bool Application::OnWindowClose(WindowCloseEvent& event)
+	bool Application::OnWindowClose(const WindowCloseEvent& event)
 	{
 		m_Running = false;
 		return true;
 	}
 
-	bool Application::OnWindowResize(WindowResizeEvent& event)
+	bool Application::OnWindowResize(const WindowResizeEvent& event)
 	{
 		if (event.GetWidth() == 0 || event.GetHeight() == 0) 
 		{

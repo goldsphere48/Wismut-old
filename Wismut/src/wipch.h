@@ -11,6 +11,7 @@
 #include <unordered_map>
 #include <array>
 #include <filesystem>
+#include <ranges>
 
 #include "Wismut/Core/Core.h"
 #include "Wismut/Core/Log.h"

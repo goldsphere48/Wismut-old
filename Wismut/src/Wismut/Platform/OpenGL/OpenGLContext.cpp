@@ -21,9 +21,4 @@ namespace Wi
 		WI_CORE_INFO("Renderer: {0}", glGetString(GL_RENDERER));
 		WI_CORE_INFO("Version: {0}", glGetString(GL_VERSION));
 	}
-
-	void OpenGLContext::SwapBuffers()
-	{
-		glfwSwapBuffers(m_Window);
-	}
 }
